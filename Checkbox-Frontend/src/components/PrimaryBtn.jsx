@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 
-const PrimaryBtn = ({ buttonText, onClick }) => {
+const PrimaryBtn = ({ buttonText, value, onClick }) => {
   return (
-    <Button variant="outlined" onClick={onClick}>
+    <Button variant="outlined" value={value} onClick={onClick}>
       {buttonText}
     </Button>
   );
@@ -11,6 +11,7 @@ const PrimaryBtn = ({ buttonText, onClick }) => {
 
 PrimaryBtn.propTypes = {
   buttonText: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 export default PrimaryBtn;
