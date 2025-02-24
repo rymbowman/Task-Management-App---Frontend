@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import PrimaryBtn from "../components/PrimaryBtn";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled(Box)({
   display: "flex",
@@ -40,11 +41,13 @@ const ButtonContainer = styled(Box)({
 });
 
 const Landing = () => {
+  const navigate = useNavigate();
+
   const handleClick = (e) => {
     if (e.target.value === "register") {
-      console.log("register button clicked");
+      navigate("/register");
     } else if (e.target.value === "login") {
-      console.log("login button clicked");
+      navigate("/login");
     }
   };
   return (
