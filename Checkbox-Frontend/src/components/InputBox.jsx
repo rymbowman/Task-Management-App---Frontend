@@ -1,13 +1,14 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
-const InputBox = ({ label, value, onChange }) => {
+const InputBox = ({ label, name, value, onChange }) => {
   return (
     <>
       <TextField
         label={label}
-        variant="outlined"
+        name={name}
         value={value}
         onChange={onChange}
+        variant="outlined"
       />
     </>
   );
@@ -15,6 +16,7 @@ const InputBox = ({ label, value, onChange }) => {
 
 InputBox.propTypes = {
   label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

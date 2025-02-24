@@ -16,17 +16,35 @@ const LoginPage = styled(Box)({
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleChange = () => {
-    // Handle input change
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "username") {
+      setUsername(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
   };
+
   const handleClick = () => {
-    // Handle login
+    setUsername("");
+    setPassword("");
   };
   return (
     <LoginPage>
       <Typography variant="h4">Login</Typography>
-      <InputBox label={"Username"} value={username} onChange={handleChange} />
-      <InputBox label={"Password"} value={password} onChange={handleChange} />
+      <InputBox
+        label={"Username"}
+        name="username"
+        value={username}
+        onChange={handleChange}
+      />
+      <InputBox
+        label={"Password"}
+        name="password"
+        value={password}
+        onChange={handleChange}
+      />
       <PrimaryBtn buttonText="Login" value="login" onClick={handleClick} />
     </LoginPage>
   );
