@@ -2,6 +2,7 @@ import { Box, styled, Typography } from "@mui/material";
 import PrimaryBtn from "../components/PrimaryBtn";
 import InputBox from "../components/InputBox";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = styled(Box)({
   display: "flex",
@@ -14,6 +15,7 @@ const LoginPage = styled(Box)({
   background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
 });
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,6 +29,7 @@ const Login = () => {
   };
 
   const handleClick = () => {
+    navigate("/dashboard");
     setUsername("");
     setPassword("");
   };
