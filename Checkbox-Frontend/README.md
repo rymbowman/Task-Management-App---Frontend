@@ -1,8 +1,52 @@
-# React + Vite
+# Checkbox - Task Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Checkbox is a task management application designed to help users organize and manage their tasks efficiently. This repository contains the frontend of the application, built with React and Vite.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Integration](#api-integration)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- Create, update, and delete tasks
+- Organize tasks into categories
+- Set due dates and reminders
+- Mark tasks as complete
+- Responsive design
+- User authentication
+- Task filtering and search functionality
+
+## Technologies Used
+
+- React
+- Vite
+- MUI (Material-UI)
+- JavaScript
+- Axios
+- React Router
+- ESLint
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc)
+
+## Getting Started
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-username/checkbox-frontend.git
+   ```
