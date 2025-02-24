@@ -65,7 +65,7 @@ To get a local copy up and running, follow these steps.
 To start the development server, run:
 npm run dev
 
-Open http://localhost:3000 to view it in your browser.
+Open http://localhost:5173 to view it in your browser.
 
 ### Environment Variables
 
