@@ -14,6 +14,7 @@ const LoginPage = styled(Box)({
   justifyContent: "center",
   background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
 });
+
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
