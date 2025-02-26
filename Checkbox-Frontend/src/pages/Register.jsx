@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
 import InputBox from "../components/InputBox";
 import PrimaryBtn from "../components/PrimaryBtn";
+import { useState } from "react";
 
 const RegisterPage = styled(Box)({
   display: "flex",
@@ -14,6 +15,34 @@ const RegisterPage = styled(Box)({
 });
 
 const Register = () => {
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const [formValidity, setFormValidity] = useState({
+    firstName: true,
+    lastName: true,
+    email: true,
+    username: true,
+    password: true,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+    setFormValidity((prevValidity) => ({
+      ...prevValidity,
+      [name]: value.length > 0,
+    }));
+  };
+
   return (
     <RegisterPage>
       <Typography variant="h4">Register</Typography>
