@@ -1,14 +1,24 @@
-import { TextField } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import PropTypes from "prop-types";
-const InputBox = ({ label, name, value, onChange }) => {
+import "../styles/App.css";
+
+const StyledTextField = styled(TextField)(({ isValid }) => ({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: isValid ? "" : "2px solid red",
+    },
+  },
+}));
+const InputBox = ({ label, name, value, onChange, isValid }) => {
   return (
     <>
-      <TextField
+      <StyledTextField
         label={label}
         name={name}
         value={value}
         onChange={onChange}
         variant="outlined"
+        isValid={isValid}
       />
     </>
   );
@@ -19,5 +29,6 @@ InputBox.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  isValid: PropTypes.bool,
 };
 export default InputBox;

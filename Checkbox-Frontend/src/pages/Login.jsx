@@ -18,21 +18,34 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isUserValid, setIsUserValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "username") {
       setUsername(value);
+      setIsUserValid(value.length > 0);
     } else if (name === "password") {
       setPassword(value);
+      setIsPasswordValid(value.length > 0);
     }
   };
 
   const handleClick = () => {
-    navigate("/dashboard");
-    setUsername("");
-    setPassword("");
+    if (username.length < 1) {
+      setIsUserValid(false);
+    }
+    if (password.length < 1) {
+      setIsPasswordValid(false);
+    }
+    if (username.length > 0 && password.length > 0) {
+      navigate("/dashboard");
+      setUsername("");
+      setPassword("");
+    }
   };
+
   return (
     <LoginPage>
       <Typography variant="h4">Login</Typography>
@@ -41,12 +54,14 @@ const Login = () => {
         name="username"
         value={username}
         onChange={handleChange}
+        isValid={isUserValid}
       />
       <InputBox
         label={"Password"}
         name="password"
         value={password}
         onChange={handleChange}
+        isValid={isPasswordValid}
       />
       <PrimaryBtn buttonText="Login" value="login" onClick={handleClick} />
     </LoginPage>
