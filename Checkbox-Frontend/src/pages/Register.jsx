@@ -49,37 +49,37 @@ const Register = () => {
       <InputBox
         label={"First Name"}
         name="firstName"
-        value={firstName}
+        value={formValues.firstName}
         onChange={handleChange}
-        isValid={isFirstNameValid}
+        isValid={formValidity.firstName}
       />
       <InputBox
         label={"Last Name"}
         name="lastName"
-        value={lastName}
+        value={formValues.lastName}
         onChange={handleChange}
-        isValid={isLastNameValid}
+        isValid={formValidity.lastName}
       />
       <InputBox
         label={"Email"}
         name="email"
-        value={email}
+        value={formValues.email}
         onChange={handleChange}
-        isValid={isEmailValid}
+        isValid={formValidity.email}
       />
       <InputBox
         label={"Username"}
         name="username"
-        value={username}
+        value={formValues.username}
         onChange={handleChange}
-        isValid={isUserValid}
+        isValid={formValidity.username}
       />
       <InputBox
         label={"Password"}
         name="password"
-        value={password}
+        value={formValues.password}
         onChange={handleChange}
-        isValid={isPasswordValid}
+        isValid={formValidity.password}
       />
       <PrimaryBtn buttonText="Login" value="login" onClick={handleClick} />
     </RegisterPage>
