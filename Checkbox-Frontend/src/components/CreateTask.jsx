@@ -25,6 +25,14 @@ const CreateTask = () => {
     notes: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCreateTaskValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
@@ -32,11 +40,13 @@ const CreateTask = () => {
         label={"Task Name"}
         name="taskName"
         value={createTaskValues.title}
+        onChange={handleChange}
       />
       <InputBox
         label={"Task Description"}
         name="taskDescription"
         value={createTaskValues.description}
+        onChange={handleChange}
       />
       <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
