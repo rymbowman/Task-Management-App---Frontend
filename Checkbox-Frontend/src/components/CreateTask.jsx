@@ -15,17 +15,28 @@ const TaskCreationContainer = styled(Box)({
 });
 
 const CreateTask = () => {
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
+  const [createTaskValues, setCreateTaskValues] = useState({
+    title: "",
+    description: "",
+    category: "",
+    dueDate: "",
+    priority: "",
+    steps: "",
+    notes: "",
+  });
 
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
-      <InputBox label={"Task Name"} name="taskName" value={taskName} />
+      <InputBox
+        label={"Task Name"}
+        name="taskName"
+        value={createTaskValues.title}
+      />
       <InputBox
         label={"Task Description"}
         name="taskDescription"
-        value={taskDescription}
+        value={createTaskValues.description}
       />
       <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
