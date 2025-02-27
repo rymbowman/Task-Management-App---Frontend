@@ -1,4 +1,11 @@
-import { Box, styled, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  styled,
+  Switch,
+  Typography,
+} from "@mui/material";
 import InputBox from "./InputBox";
 import PrimaryBtn from "./PrimaryBtn";
 import { useState } from "react";
@@ -23,6 +30,8 @@ const CreateTask = () => {
     priority: "",
     steps: "",
     notes: "",
+    reminder: "",
+    collaborators: "",
   });
 
   const handleChange = (e) => {
@@ -48,6 +57,13 @@ const CreateTask = () => {
         value={createTaskValues.description}
         onChange={handleChange}
       />
+      <FormControlLabel control={<Switch />} label="Category" />
+      <FormControlLabel control={<Switch />} label="Priority" />
+      <FormControlLabel control={<Switch />} label="Deadline" />
+      <FormControlLabel control={<Switch />} label="Steps" />
+      <FormControlLabel control={<Switch />} label="Notes" />
+      <FormControlLabel control={<Switch />} label="Reminder" />
+      <FormControlLabel control={<Switch />} label="Collaborators" />
       <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
   );
