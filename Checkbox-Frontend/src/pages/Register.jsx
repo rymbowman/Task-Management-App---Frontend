@@ -110,7 +110,11 @@ const Register = () => {
         onChange={handleChange}
         isValid={formValidity.password}
       />
-      <PrimaryBtn buttonText="Login" value="login" onClick={handleClick} />
+      <PrimaryBtn
+        buttonText="Register"
+        value="register"
+        onClick={handleClick}
+      />
     </RegisterPage>
   );
 };
