@@ -1,4 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
+import InputBox from "./InputBox";
+import PrimaryBtn from "./PrimaryBtn";
+import { useState } from "react";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -12,9 +15,19 @@ const TaskCreationContainer = styled(Box)({
 });
 
 const CreateTask = () => {
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
+      <InputBox label={"Task Name"} name="taskName" value={taskName} />
+      <InputBox
+        label={"Task Description"}
+        name="taskDescription"
+        value={taskDescription}
+      />
+      <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
   );
 };
