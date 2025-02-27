@@ -1,7 +1,22 @@
-import { Box } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
+
+const TaskCreationContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "20px",
+  width: "30%",
+  justifyContent: "center",
+  background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
+  border: "1px solid black",
+});
 
 const CreateTask = () => {
-  return <Box></Box>;
+  return (
+    <TaskCreationContainer>
+      <Typography variant="h4">Create Task</Typography>
+    </TaskCreationContainer>
+  );
 };
 
 export default CreateTask;
