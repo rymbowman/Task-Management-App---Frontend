@@ -1,12 +1,4 @@
-import {
-  Box,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  styled,
-  Switch,
-  Typography,
-} from "@mui/material";
+import { Box, FormGroup, IconButton, styled, Typography } from "@mui/material";
 import InputBox from "./InputBox";
 import PrimaryBtn from "./PrimaryBtn";
 import { useState } from "react";
@@ -18,6 +10,7 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import NotesIcon from "@mui/icons-material/Notes";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
+import SwitchBtn from "./SwitchBtn";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -32,19 +25,6 @@ const TaskCreationContainer = styled(Box)({
 const SwitchContainer = styled(FormGroup)({
   width: "65%",
 });
-const SwitchItem = styled(FormControlLabel)({
-  display: "flex",
-  justifyContent: "space-between",
-  margin: "0",
-  padding: "2.5px 15px",
-});
-
-const LabelBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "15px",
-});
 
 const CreateTask = () => {
   const [createTaskValues, setCreateTaskValues] = useState({
@@ -58,6 +38,7 @@ const CreateTask = () => {
     reminder: "",
     collaborators: "",
   });
+  const [openTaskDetails, setOpenTaskDetails] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,102 +63,63 @@ const CreateTask = () => {
         value={createTaskValues.description}
         onChange={handleChange}
       />
-      <IconButton onClick={() => console.log("More options")}>
+      <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
         <MoreVertIcon />
       </IconButton>
-      <SwitchContainer>
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="category"
-          value={createTaskValues.category}
-          onChange={handleChange}
-          label={
-            <LabelBox>
-              <CategoryIcon />
-              <Typography variant="body1">Category</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="priority"
-          value={createTaskValues.priority}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <PriorityHighIcon />
-              <Typography variant="body1">Priority</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="dueDate"
-          value={createTaskValues.dueDate}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <CalendarMonthIcon />
-              <Typography variant="body1">Deadline</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="steps"
-          value={createTaskValues.steps}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <ChecklistIcon />
-              <Typography variant="body1">Steps</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="notes"
-          value={createTaskValues.notes}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <NotesIcon />
-              <Typography variant="body1">Notes</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="reminder"
-          value={createTaskValues.reminder}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <NotificationAddIcon />
-              <Typography variant="body1">Reminder</Typography>
-            </LabelBox>
-          }
-        />
-        <SwitchItem
-          control={<Switch />}
-          labelPlacement="start"
-          name="collaborators"
-          value={createTaskValues.collaborators}
-          onChange={handleChange}
-          label={
-            <LabelBox display="flex">
-              <GroupsIcon />
-              <Typography variant="body1">Collaborators</Typography>
-            </LabelBox>
-          }
-        />
-      </SwitchContainer>
+      {openTaskDetails ? (
+        <SwitchContainer>
+          <SwitchBtn
+            name="category"
+            value={createTaskValues.category}
+            onChange={handleChange}
+            icon={<CategoryIcon />}
+            labelText="Category"
+          />
+          <SwitchBtn
+            name="priority"
+            value={createTaskValues.priority}
+            onChange={handleChange}
+            icon={<PriorityHighIcon />}
+            labelText="Priority"
+          />
+          <SwitchBtn
+            name="dueDate"
+            value={createTaskValues.dueDate}
+            onChange={handleChange}
+            icon={<CalendarMonthIcon />}
+            labelText="Deadline"
+          />
+          <SwitchBtn
+            name="steps"
+            value={createTaskValues.steps}
+            onChange={handleChange}
+            icon={<ChecklistIcon />}
+            labelText="Steps"
+          />
+          <SwitchBtn
+            name="notes"
+            value={createTaskValues.notes}
+            onChange={handleChange}
+            icon={<NotesIcon />}
+            labelText="Notes"
+          />
+          <SwitchBtn
+            name="reminder"
+            value={createTaskValues.reminder}
+            onChange={handleChange}
+            icon={<NotificationAddIcon />}
+            labelText="Reminder"
+          />
+          <SwitchBtn
+            name="collaborators"
+            value={createTaskValues.collaborators}
+            onChange={handleChange}
+            icon={<GroupsIcon />}
+            labelText="Collaborators"
+          />
+        </SwitchContainer>
+      ) : null}
+
       <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
   );
