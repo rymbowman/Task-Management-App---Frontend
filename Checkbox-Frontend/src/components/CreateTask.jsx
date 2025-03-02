@@ -24,12 +24,19 @@ const TaskCreationContainer = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   gap: "20px",
-  width: "30%",
+  width: "40%",
+  padding: "20px",
   background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
+  borderRadius: "8px",
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 });
 
 const SwitchContainer = styled(FormGroup)({
-  width: "65%",
+  width: "100%",
+  padding: "10px",
+  background: "#fff",
+  borderRadius: "8px",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
 });
 
 const CreateTask = () => {
