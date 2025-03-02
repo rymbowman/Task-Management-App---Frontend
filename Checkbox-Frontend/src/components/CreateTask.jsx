@@ -1,4 +1,11 @@
-import { Box, FormGroup, IconButton, styled, Typography } from "@mui/material";
+import {
+  Box,
+  Collapse,
+  FormGroup,
+  IconButton,
+  styled,
+  Typography,
+} from "@mui/material";
 import InputBox from "./InputBox";
 import PrimaryBtn from "./PrimaryBtn";
 import { useState } from "react";
@@ -19,7 +26,6 @@ const TaskCreationContainer = styled(Box)({
   gap: "20px",
   width: "30%",
   background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
-  border: "1px solid black",
 });
 
 const SwitchContainer = styled(FormGroup)({
@@ -66,7 +72,7 @@ const CreateTask = () => {
       <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
         <MoreVertIcon />
       </IconButton>
-      {openTaskDetails ? (
+      <Collapse in={openTaskDetails} timeout="auto">
         <SwitchContainer>
           <SwitchBtn
             name="category"
@@ -118,8 +124,7 @@ const CreateTask = () => {
             labelText="Collaborators"
           />
         </SwitchContainer>
-      ) : null}
-
+      </Collapse>
       <PrimaryBtn buttonText={"Create Task"} />
     </TaskCreationContainer>
   );
