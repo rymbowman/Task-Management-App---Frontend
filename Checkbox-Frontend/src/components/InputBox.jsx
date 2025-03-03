@@ -7,7 +7,7 @@ const InputBox = ({
   name,
   value,
   type,
-  inputProps,
+  slotProps,
   onChange,
   isValid,
   multiline,
@@ -20,7 +20,7 @@ const InputBox = ({
         name={name}
         value={value}
         type={type}
-        slotProps={{ input: inputProps }}
+        slotProps={slotProps}
         onChange={onChange}
         variant="outlined"
         multiline={multiline}
@@ -43,7 +43,7 @@ InputBox.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  inputProps: PropTypes.object,
+  slotProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   isValid: PropTypes.bool,
   multiline: PropTypes.bool,
