@@ -21,7 +21,14 @@ const LabelBox = styled(Box)({
   gap: "15px",
 });
 
-const SwitchBtn = ({ name, value, onChange, icon, labelText }) => {
+const SwitchBtn = ({
+  name,
+  value,
+  onChange,
+  icon,
+  labelText,
+  onClick,
+}) => {
   return (
     <SwitchItem
       control={<Switch />}
@@ -35,6 +42,7 @@ const SwitchBtn = ({ name, value, onChange, icon, labelText }) => {
           <Typography variant="body1">{labelText}</Typography>
         </LabelBox>
       }
+      onClick={onClick}
     />
   );
 };
@@ -45,5 +53,6 @@ SwitchBtn.propTypes = {
   onChange: PropTypes.func.isRequired,
   icon: PropTypes.element.isRequired,
   labelText: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 export default SwitchBtn;
