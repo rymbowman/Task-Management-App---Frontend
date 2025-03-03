@@ -46,10 +46,11 @@ const SwitchContainer = styled(FormGroup)({
 });
 
 const CreateTask = () => {
+  const [validInput, setValidInput] = useState(true);
   const [createTaskValues, setCreateTaskValues] = useState({
     title: "",
     description: "",
-    category: [],
+    category: "",
     dueDate: "",
     priority: "",
     steps: [],
@@ -63,15 +64,22 @@ const CreateTask = () => {
   const [openStepsInput, setOpenStepsInput] = useState(false);
   const [openNotesInput, setOpenNotesInput] = useState(false);
   const [openReminderInput, setOpenReminderInput] = useState(false);
-  const [newCategory, setNewCategory] = useState("");
   const [newStep, setNewStep] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCreateTaskValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+    if (name === "priority") {
+      const priorityValue = Math.max(0, Math.min(5, Number(value)));
+      setCreateTaskValues((prevValues) => ({
+        ...prevValues,
+        [name]: priorityValue,
+      }));
+    } else {
+      setCreateTaskValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
   };
 
   const handleAddStep = () => {
@@ -84,22 +92,43 @@ const CreateTask = () => {
     }
   };
 
+  const handleSubmit = () => {
+    if (createTaskValues.title.trim() === "") {
+      setValidInput(false);
+    } else {
+      console.log("Task created:", createTaskValues);
+      setCreateTaskValues({
+        title: "",
+        description: "",
+        category: "",
+        dueDate: "",
+        priority: "",
+        steps: [],
+        notes: "",
+        reminder: "",
+      });
+    }
+  };
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
       <InputBox
         label={"Task Name"}
-        name="taskName"
+        name="title"
         value={createTaskValues.title}
-        type={"text"}
+        type="text"
         onChange={handleChange}
+        isValid={validInput}
       />
       <InputBox
         label={"Task Description"}
-        name="taskDescription"
+        name="description"
         value={createTaskValues.description}
-        type={"text"}
+        type="text"
         onChange={handleChange}
+        isValid={validInput}
+        multiline={true}
+        rows={2}
       />
       <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
         <MoreVertIcon />
@@ -115,19 +144,12 @@ const CreateTask = () => {
             onClick={() => setOpenCategoryInput(!openCategoryInput)}
           />
           <Collapse in={openCategoryInput} timeout="auto">
-            <List>
-              {Array.isArray(createTaskValues.category) &&
-                createTaskValues.category.map((category, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={category} />
-                  </ListItem>
-                ))}
-            </List>
-            <TextField
-              label="New Category"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-              fullWidth
+            <InputBox
+              label="Category"
+              name="category"
+              value={createTaskValues.category}
+              type="text"
+              onChange={handleChange}
             />
           </Collapse>
           <SwitchBtn
@@ -140,12 +162,14 @@ const CreateTask = () => {
           />
           <Collapse in={openPriorityInput} timeout="auto">
             <InputBox
-              label={"Priority"}
+              label="Priority"
               name="priority"
               value={createTaskValues.priority}
               type="number"
               onChange={handleChange}
-              inputProps={{ min: 1, max: 5 }}
+              slotProps={{
+                input: { min: 0, max: 5 },
+              }}
             />
           </Collapse>
           <SwitchBtn
@@ -226,7 +250,7 @@ const CreateTask = () => {
           </Collapse>
         </SwitchContainer>
       </Collapse>
-      <PrimaryBtn buttonText={"Create Task"} />
+      <PrimaryBtn buttonText={"Create Task"} onClick={handleSubmit} />
     </TaskCreationContainer>
   );
 };
