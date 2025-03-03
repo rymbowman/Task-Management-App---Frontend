@@ -1,9 +1,14 @@
 import {
   Box,
+  Button,
   Collapse,
   FormGroup,
   IconButton,
+  List,
+  ListItem,
+  ListItemText,
   styled,
+  TextField,
   Typography,
 } from "@mui/material";
 import InputBox from "./InputBox";
@@ -16,8 +21,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import NotesIcon from "@mui/icons-material/Notes";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
-import GroupsIcon from "@mui/icons-material/Groups";
 import SwitchBtn from "./SwitchBtn";
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -43,15 +49,22 @@ const CreateTask = () => {
   const [createTaskValues, setCreateTaskValues] = useState({
     title: "",
     description: "",
-    category: "",
+    category: [],
     dueDate: "",
     priority: "",
-    steps: "",
+    steps: [],
     notes: "",
     reminder: "",
-    collaborators: "",
   });
   const [openTaskDetails, setOpenTaskDetails] = useState(false);
+  const [openCategoryInput, setOpenCategoryInput] = useState(false);
+  const [openPriorityInput, setOpenPriorityInput] = useState(false);
+  const [openDueDateInput, setOpenDueDateInput] = useState(false);
+  const [openStepsInput, setOpenStepsInput] = useState(false);
+  const [openNotesInput, setOpenNotesInput] = useState(false);
+  const [openReminderInput, setOpenReminderInput] = useState(false);
+  const [newCategory, setNewCategory] = useState("");
+  const [newStep, setNewStep] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +74,16 @@ const CreateTask = () => {
     }));
   };
 
+  const handleAddStep = () => {
+    if (newStep.trim() !== "") {
+      setCreateTaskValues((prevValues) => ({
+        ...prevValues,
+        steps: [...prevValues.steps, newStep],
+      }));
+      setNewStep("");
+    }
+  };
+
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
@@ -68,12 +91,14 @@ const CreateTask = () => {
         label={"Task Name"}
         name="taskName"
         value={createTaskValues.title}
+        type={"text"}
         onChange={handleChange}
       />
       <InputBox
         label={"Task Description"}
         name="taskDescription"
         value={createTaskValues.description}
+        type={"text"}
         onChange={handleChange}
       />
       <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
@@ -87,49 +112,118 @@ const CreateTask = () => {
             onChange={handleChange}
             icon={<CategoryIcon />}
             labelText="Category"
+            onClick={() => setOpenCategoryInput(!openCategoryInput)}
           />
+          <Collapse in={openCategoryInput} timeout="auto">
+            <List>
+              {Array.isArray(createTaskValues.category) &&
+                createTaskValues.category.map((category, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={category} />
+                  </ListItem>
+                ))}
+            </List>
+            <TextField
+              label="New Category"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              fullWidth
+            />
+          </Collapse>
           <SwitchBtn
             name="priority"
             value={createTaskValues.priority}
             onChange={handleChange}
             icon={<PriorityHighIcon />}
             labelText="Priority"
+            onClick={() => setOpenPriorityInput(!openPriorityInput)}
           />
+          <Collapse in={openPriorityInput} timeout="auto">
+            <InputBox
+              label={"Priority"}
+              name="priority"
+              value={createTaskValues.priority}
+              type="number"
+              onChange={handleChange}
+              inputProps={{ min: 1, max: 5 }}
+            />
+          </Collapse>
           <SwitchBtn
             name="dueDate"
             value={createTaskValues.dueDate}
             onChange={handleChange}
             icon={<CalendarMonthIcon />}
             labelText="Deadline"
+            onClick={() => setOpenDueDateInput(!openDueDateInput)}
           />
+          <Collapse in={openDueDateInput} timeout="auto">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Box components={["DateTimePicker"]}>
+                <DateTimePicker label="Due by" />
+              </Box>
+            </LocalizationProvider>
+          </Collapse>
           <SwitchBtn
             name="steps"
             value={createTaskValues.steps}
             onChange={handleChange}
             icon={<ChecklistIcon />}
             labelText="Steps"
+            onClick={() => setOpenStepsInput(!openStepsInput)}
           />
+          <Collapse in={openStepsInput} timeout="auto">
+            <List>
+              {Array.isArray(createTaskValues.steps) &&
+                createTaskValues.steps.map((step, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={step} />
+                  </ListItem>
+                ))}
+            </List>
+            <TextField
+              label="New Step"
+              value={newStep}
+              onChange={(e) => setNewStep(e.target.value)}
+              fullWidth
+            />
+            <Button onClick={handleAddStep} variant="contained" color="primary">
+              Add Step
+            </Button>
+          </Collapse>
           <SwitchBtn
             name="notes"
             value={createTaskValues.notes}
             onChange={handleChange}
             icon={<NotesIcon />}
             labelText="Notes"
+            onClick={() => setOpenNotesInput(!openNotesInput)}
           />
+          <Collapse in={openNotesInput} timeout="auto">
+            <InputBox
+              label="Notes"
+              name="notes"
+              value={createTaskValues.notes}
+              type="text"
+              onChange={handleChange}
+              multiline={true}
+              rows={4}
+            />
+          </Collapse>
           <SwitchBtn
             name="reminder"
             value={createTaskValues.reminder}
             onChange={handleChange}
             icon={<NotificationAddIcon />}
             labelText="Reminder"
+            onClick={() => setOpenReminderInput(!openReminderInput)}
           />
-          <SwitchBtn
-            name="collaborators"
-            value={createTaskValues.collaborators}
-            onChange={handleChange}
-            icon={<GroupsIcon />}
-            labelText="Collaborators"
-          />
+          <Collapse in={openReminderInput} timeout="auto">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Box components={["DateTimePicker"]}>
+                <DateTimePicker label="Set Reminder" />
+              </Box>
+            </LocalizationProvider>
+          </Collapse>
         </SwitchContainer>
       </Collapse>
       <PrimaryBtn buttonText={"Create Task"} />
