@@ -22,8 +22,9 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import NotesIcon from "@mui/icons-material/Notes";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 import SwitchBtn from "./SwitchBtn";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -51,11 +52,11 @@ const CreateTask = () => {
     title: "",
     description: "",
     category: "",
-    dueDate: "",
+    dueDate: null,
     priority: "",
     steps: [],
     notes: "",
-    reminder: "",
+    reminder: null,
   });
   const [openTaskDetails, setOpenTaskDetails] = useState(false);
   const [openCategoryInput, setOpenCategoryInput] = useState(false);
@@ -82,6 +83,13 @@ const CreateTask = () => {
     }
   };
 
+  const handleDateChange = (name, date) => {
+    setCreateTaskValues((prevValues) => ({
+      ...prevValues,
+      [name]: date ? dayjs(date).format("YYYY-MM-DD") : null,
+    }));
+  };
+
   const handleAddStep = () => {
     if (newStep.trim() !== "") {
       setCreateTaskValues((prevValues) => ({
@@ -101,11 +109,11 @@ const CreateTask = () => {
         title: "",
         description: "",
         category: "",
-        dueDate: "",
+        dueDate: null,
         priority: "",
         steps: [],
         notes: "",
-        reminder: "",
+        reminder: null,
       });
     }
   };
@@ -174,7 +182,7 @@ const CreateTask = () => {
           </Collapse>
           <SwitchBtn
             name="dueDate"
-            value={createTaskValues.dueDate}
+            value={createTaskValues.dueDate ? createTaskValues.dueDate : ""}
             onChange={handleChange}
             icon={<CalendarMonthIcon />}
             labelText="Deadline"
@@ -182,8 +190,16 @@ const CreateTask = () => {
           />
           <Collapse in={openDueDateInput} timeout="auto">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Box components={["DateTimePicker"]}>
-                <DateTimePicker label="Due by" />
+              <Box components={["DateField"]}>
+                <DateField
+                  label="Due by"
+                  value={
+                    createTaskValues.dueDate
+                      ? dayjs(createTaskValues.dueDate)
+                      : null
+                  }
+                  onChange={(date) => handleDateChange("dueDate", date)}
+                />
               </Box>
             </LocalizationProvider>
           </Collapse>
@@ -235,7 +251,7 @@ const CreateTask = () => {
           </Collapse>
           <SwitchBtn
             name="reminder"
-            value={createTaskValues.reminder}
+            value={createTaskValues.reminder ? createTaskValues.reminder : ""}
             onChange={handleChange}
             icon={<NotificationAddIcon />}
             labelText="Reminder"
@@ -243,8 +259,16 @@ const CreateTask = () => {
           />
           <Collapse in={openReminderInput} timeout="auto">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Box components={["DateTimePicker"]}>
-                <DateTimePicker label="Set Reminder" />
+              <Box components={["DateField"]}>
+                <DateField
+                  label="Set Reminder"
+                  value={
+                    createTaskValues.reminder
+                      ? dayjs(createTaskValues.reminder)
+                      : null
+                  }
+                  onChange={(date) => handleDateChange("reminder", date)}
+                />
               </Box>
             </LocalizationProvider>
           </Collapse>
