@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
   styled,
-  TextField,
   Typography,
 } from "@mui/material";
 import InputBox from "./InputBox";
@@ -21,6 +20,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import NotesIcon from "@mui/icons-material/Notes";
 import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
+import DeleteIcon from "@mui/icons-material/Delete";
 import SwitchBtn from "./SwitchBtn";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -96,8 +96,17 @@ const CreateTask = () => {
         ...prevValues,
         steps: [...prevValues.steps, newStep],
       }));
+      console.log("New step added:", createTaskValues.steps);
       setNewStep("");
     }
+  };
+
+  const handleDeleteStep = (index) => {
+    setCreateTaskValues((prevValues) => ({
+      ...prevValues,
+      steps: prevValues.steps.filter((_, i) => i !== index),
+    }));
+    console.log("Step deleted:", createTaskValues.steps);
   };
 
   const handleSubmit = () => {
@@ -142,7 +151,13 @@ const CreateTask = () => {
         <MoreVertIcon />
       </IconButton>
       <Collapse in={openTaskDetails} timeout="auto">
-        <SwitchContainer>
+        <SwitchContainer
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
+        >
           <SwitchBtn
             name="category"
             value={createTaskValues.category}
@@ -212,23 +227,59 @@ const CreateTask = () => {
             onClick={() => setOpenStepsInput(!openStepsInput)}
           />
           <Collapse in={openStepsInput} timeout="auto">
-            <List>
+            <List
+              sx={{
+                width: "100%",
+              }}
+            >
               {Array.isArray(createTaskValues.steps) &&
+              createTaskValues.steps.length > 0 ? (
                 createTaskValues.steps.map((step, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={step} />
+                  <ListItem
+                    key={index}
+                    secondaryAction={
+                      <IconButton
+                        onClick={() => handleDeleteStep(index)}
+                        color="primary"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                    sx={{
+                      display: "flex",
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <ListItemText primary={`- ${step}`} />
                   </ListItem>
-                ))}
+                ))
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  No steps added
+                </Typography>
+              )}
             </List>
-            <TextField
-              label="New Step"
-              value={newStep}
-              onChange={(e) => setNewStep(e.target.value)}
-              fullWidth
-            />
-            <Button onClick={handleAddStep} variant="contained" color="primary">
-              Add Step
-            </Button>
+            <Box
+              sx={{
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
+              }}
+            >
+              <InputBox
+                label="New Step"
+                value={newStep}
+                onChange={(e) => setNewStep(e.target.value)}
+              />
+              <Button
+                onClick={handleAddStep}
+                variant="contained"
+                color="primary"
+              >
+                Add
+              </Button>
+            </Box>
           </Collapse>
           <SwitchBtn
             name="notes"
