@@ -29,7 +29,8 @@ const InputBox = ({
           width: "100%",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              border: isValid ? "" : "2px solid red",
+              border:
+                isValid === undefined ? "" : isValid ? "" : "2px solid red",
             },
           },
         }}

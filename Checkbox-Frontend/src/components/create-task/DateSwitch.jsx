@@ -1,23 +1,23 @@
 import { Box, Collapse, styled } from "@mui/material";
-import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
+import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SwitchBtn from "./SwitchBtn";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { handleDateChange } from "./taskHelpers";
+import { useState } from "react";
 
 const InputContainer = styled(Collapse)({
   width: "90%",
   margin: "auto",
 });
 
-const DateInput = styled(DateField)({
+const DateInput = styled(DateCalendar)({
   width: "100%",
 });
 
 const DateSwitch = ({
   name,
-  createTaskValues,
   setCreateTaskValues,
   labelText,
   setOpenInput,
@@ -25,6 +25,13 @@ const DateSwitch = ({
   iconImage,
   label,
 }) => {
+  const [value, setValue] = useState(dayjs());
+
+  const handleDateChangeInternal = (date) => {
+    setValue(date);
+    handleDateChange(name, date, setCreateTaskValues);
+  };
+
   return (
     <>
       <SwitchBtn
@@ -39,10 +46,9 @@ const DateSwitch = ({
           <Box components={["DateField"]}>
             <DateInput
               label={label}
-              value={createTaskValues ? dayjs({ createTaskValues }) : null}
-              onChange={(date) =>
-                handleDateChange(name, date, setCreateTaskValues)
-              }
+              value={value}
+              onChange={handleDateChangeInternal}
+              minDate={dayjs()}
             />
           </Box>
         </LocalizationProvider>
@@ -53,7 +59,6 @@ const DateSwitch = ({
 
 DateSwitch.propTypes = {
   name: PropTypes.string.isRequired,
-  createTaskValues: PropTypes.object.isRequired,
   setCreateTaskValues: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   setOpenInput: PropTypes.func.isRequired,

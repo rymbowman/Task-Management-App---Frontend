@@ -43,7 +43,6 @@ const SwitchContainer = ({ createTaskValues, setCreateTaskValues }) => {
       />
       <DateSwitch
         name={"dueDate"}
-        createTaskValues={createTaskValues}
         setCreateTaskValues={setCreateTaskValues}
         labelText={"Due Date"}
         setOpenInput={setOpenDueDateInput}
@@ -53,7 +52,6 @@ const SwitchContainer = ({ createTaskValues, setCreateTaskValues }) => {
       />
       <DateSwitch
         name={"reminder"}
-        createTaskValues={createTaskValues}
         setCreateTaskValues={setCreateTaskValues}
         labelText={"Reminder Date"}
         setOpenInput={setOpenReminderInput}
