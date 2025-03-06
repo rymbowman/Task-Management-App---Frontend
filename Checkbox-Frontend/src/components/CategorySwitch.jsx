@@ -27,7 +27,6 @@ const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
           onChange={(e) => handleChange(e, setCreateTaskValues)}
         />
       </Collapse>
-      ;
     </>
   );
 };
