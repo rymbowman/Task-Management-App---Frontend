@@ -3,8 +3,9 @@ import SwitchBtn from "./SwitchBtn";
 import InputBox from "./InputBox";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const CategorySwitch = (createTaskValues, handleChange) => {
+const CategorySwitch = ({ createTaskValues, handleChange }) => {
   const [openCategoryInput, setOpenCategoryInput] = useState(false);
 
   return (
@@ -29,6 +30,11 @@ const CategorySwitch = (createTaskValues, handleChange) => {
       ;
     </>
   );
+};
+
+CategorySwitch.propTypes = {
+  createTaskValues: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default CategorySwitch;

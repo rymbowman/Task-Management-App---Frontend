@@ -3,8 +3,9 @@ import InputBox from "./InputBox";
 import SwitchBtn from "./SwitchBtn";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const PrioritySwitch = (createTaskValues, handleChange) => {
+const PrioritySwitch = ({ createTaskValues, handleChange }) => {
   const [openPriorityInput, setOpenPriorityInput] = useState(false);
 
   return (
@@ -31,6 +32,11 @@ const PrioritySwitch = (createTaskValues, handleChange) => {
       </Collapse>
     </>
   );
+};
+
+PrioritySwitch.propTypes = {
+  createTaskValues: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default PrioritySwitch;
