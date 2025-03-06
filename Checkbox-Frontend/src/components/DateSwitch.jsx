@@ -23,7 +23,7 @@ const DateSwitch = ({
         value={createTaskValues ? { createTaskValues } : ""}
         icon={iconImage}
         labelText={labelText}
-        onClick={() => setOpenInput(!{ openInput })}
+        onClick={() => setOpenInput(!openInput)}
       />
       <Collapse in={openInput} timeout="auto">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
