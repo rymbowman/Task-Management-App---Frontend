@@ -26,7 +26,7 @@ const InputBox = ({
         multiline={multiline}
         rows={rows}
         sx={{
-          width: "350px",
+          width: "100%",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
               border: isValid ? "" : "2px solid red",

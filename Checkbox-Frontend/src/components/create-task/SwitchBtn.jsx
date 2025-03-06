@@ -31,6 +31,7 @@ const SwitchBtn = ({ name, icon, labelText, openInput, setOpenInput }) => {
         onChange={(e) =>
           handleSwitchToggle(e, setChecked, openInput, setOpenInput)
         }
+        sx={{ "& .MuiSwitch-switchBase.Mui-checked": { color: "blue" } }}
       />
     </SwitchItem>
   );

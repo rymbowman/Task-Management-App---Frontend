@@ -1,10 +1,19 @@
-import { Box, Collapse } from "@mui/material";
+import { Box, Collapse, styled } from "@mui/material";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SwitchBtn from "./SwitchBtn";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { handleDateChange } from "./taskHelpers";
+
+const InputContainer = styled(Collapse)({
+  width: "90%",
+  margin: "auto",
+});
+
+const DateInput = styled(DateField)({
+  width: "100%",
+});
 
 const DateSwitch = ({
   name,
@@ -25,10 +34,10 @@ const DateSwitch = ({
         openInput={openInput}
         setOpenInput={setOpenInput}
       />
-      <Collapse in={openInput} timeout="auto">
+      <InputContainer in={openInput} timeout="auto">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box components={["DateField"]}>
-            <DateField
+            <DateInput
               label={label}
               value={createTaskValues ? dayjs({ createTaskValues }) : null}
               onChange={(date) =>
@@ -37,7 +46,7 @@ const DateSwitch = ({
             />
           </Box>
         </LocalizationProvider>
-      </Collapse>
+      </InputContainer>
     </>
   );
 };
