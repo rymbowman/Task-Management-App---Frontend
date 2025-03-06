@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import CreateTask from "../components/CreateTask";
 
 const DashboardContainer = styled(Box)({
   display: "flex",
@@ -10,7 +11,11 @@ const DashboardContainer = styled(Box)({
 });
 
 const Dashboard = () => {
-  return <DashboardContainer></DashboardContainer>;
+  return (
+    <DashboardContainer>
+      <CreateTask />
+    </DashboardContainer>
+  );
 };
 
 export default Dashboard;
