@@ -20,10 +20,10 @@ const DateSwitch = ({
     <>
       <SwitchBtn
         name={name}
-        value={createTaskValues ? { createTaskValues } : ""}
         icon={iconImage}
         labelText={labelText}
-        onClick={() => setOpenInput(!openInput)}
+        openInput={openInput}
+        setOpenInput={setOpenInput}
       />
       <Collapse in={openInput} timeout="auto">
         <LocalizationProvider dateAdapter={AdapterDayjs}>

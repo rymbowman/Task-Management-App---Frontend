@@ -1,13 +1,9 @@
-import {
-  Box,
-  FormControlLabel,
-  styled,
-  Switch,
-  Typography,
-} from "@mui/material";
+import { Box, styled, Switch, Typography } from "@mui/material";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { handleSwitchToggle } from "./taskHelpers";
 
-const SwitchItem = styled(FormControlLabel)({
+const SwitchItem = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   margin: "0",
@@ -21,29 +17,30 @@ const LabelBox = styled(Box)({
   gap: "15px",
 });
 
-const SwitchBtn = ({ name, value, icon, labelText, onClick }) => {
+const SwitchBtn = ({ name, icon, labelText, openInput, setOpenInput }) => {
+  const [checked, setChecked] = useState(false);
   return (
-    <SwitchItem
-      control={<Switch />}
-      labelPlacement="start"
-      name={name}
-      value={value}
-      label={
-        <LabelBox display="flex">
-          {icon}
-          <Typography variant="body1">{labelText}</Typography>
-        </LabelBox>
-      }
-      onClick={onClick}
-    />
+    <SwitchItem>
+      <LabelBox display="flex">
+        {icon}
+        <Typography variant="body1">{labelText}</Typography>
+      </LabelBox>
+      <Switch
+        name={name}
+        checked={checked}
+        onChange={(e) =>
+          handleSwitchToggle(e, setChecked, openInput, setOpenInput)
+        }
+      />
+    </SwitchItem>
   );
 };
 
 SwitchBtn.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.bool.isRequired,
   icon: PropTypes.element.isRequired,
   labelText: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  openInput: PropTypes.bool.isRequired,
+  setOpenInput: PropTypes.func.isRequired,
 };
 export default SwitchBtn;

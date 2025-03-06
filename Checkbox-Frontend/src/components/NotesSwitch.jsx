@@ -13,10 +13,10 @@ const NotesSwitch = ({ createTaskValues, setCreateTaskValues }) => {
     <>
       <SwitchBtn
         name="notes"
-        value={createTaskValues.notes}
         icon={<NotesIcon />}
         labelText="Notes"
-        onClick={() => setOpenNotesInput(!openNotesInput)}
+        openInput={openNotesInput}
+        setOpenInput={setOpenNotesInput}
       />
       <Collapse in={openNotesInput} timeout="auto">
         <InputBox

@@ -13,10 +13,10 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
     <>
       <SwitchBtn
         name="priority"
-        value={createTaskValues.priority}
         icon={<PriorityHighIcon />}
         labelText="Priority"
-        onClick={() => setOpenPriorityInput(!openPriorityInput)}
+        openInput={openPriorityInput}
+        setOpenInput={setOpenPriorityInput}
       />
       <Collapse in={openPriorityInput} timeout="auto">
         <InputBox

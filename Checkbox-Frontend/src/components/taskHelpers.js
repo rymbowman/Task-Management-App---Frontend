@@ -1,5 +1,15 @@
 import dayjs from "dayjs";
 
+export const handleSwitchToggle = (
+  event,
+  setChecked,
+  openInput,
+  setOpenInput
+) => {
+  setChecked(event.target.checked);
+  setOpenInput(!openInput);
+};
+
 export const handleChange = (e, setCreateTaskValues) => {
   const { name, value } = e.target;
   if (name === "priority") {

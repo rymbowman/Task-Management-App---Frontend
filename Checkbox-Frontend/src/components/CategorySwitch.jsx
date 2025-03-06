@@ -13,10 +13,10 @@ const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
     <>
       <SwitchBtn
         name="category"
-        value={createTaskValues.category}
         icon={<CategoryIcon />}
         labelText="Category"
-        onClick={() => setOpenCategoryInput(!openCategoryInput)}
+        openInput={openCategoryInput}
+        setOpenInput={setOpenCategoryInput}
       />
       <Collapse in={openCategoryInput} timeout="auto">
         <InputBox

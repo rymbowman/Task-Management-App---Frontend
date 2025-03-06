@@ -31,10 +31,10 @@ const StepsSwitch = ({ createTaskValues, setCreateTaskValues }) => {
     <>
       <SwitchBtn
         name="steps"
-        value={createTaskValues.steps}
         icon={<ChecklistIcon />}
         labelText="Steps"
-        onClick={() => setOpenStepsInput(!openStepsInput)}
+        openInput={openStepsInput}
+        setOpenInput={setOpenStepsInput}
       />
       <Collapse in={openStepsInput} timeout="auto">
         <List
