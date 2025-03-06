@@ -4,8 +4,9 @@ import { useState } from "react";
 import SwitchBtn from "./SwitchBtn";
 import NotesIcon from "@mui/icons-material/Notes";
 import PropTypes from "prop-types";
+import { handleChange } from "./taskHelpers";
 
-const NotesSwitch = ({ createTaskValues, handleChange }) => {
+const NotesSwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openNotesInput, setOpenNotesInput] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const NotesSwitch = ({ createTaskValues, handleChange }) => {
           name="notes"
           value={createTaskValues.notes}
           type="text"
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, setCreateTaskValues)}
           multiline={true}
           rows={4}
         />
@@ -34,6 +35,6 @@ const NotesSwitch = ({ createTaskValues, handleChange }) => {
 };
 NotesSwitch.propTypes = {
   createTaskValues: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  setCreateTaskValues: PropTypes.func.isRequired,
 };
 export default NotesSwitch;

@@ -10,7 +10,6 @@ const DateSwitch = ({
   name,
   createTaskValues,
   setCreateTaskValues,
-  handleChange,
   labelText,
   setOpenInput,
   openInput,
@@ -34,7 +33,7 @@ const DateSwitch = ({
               label={label}
               value={createTaskValues ? dayjs({ createTaskValues }) : null}
               onChange={(date) =>
-                handleDateChange({ name }, date, setCreateTaskValues)
+                handleDateChange(name, date, setCreateTaskValues)
               }
             />
           </Box>
@@ -48,7 +47,6 @@ DateSwitch.propTypes = {
   name: PropTypes.string.isRequired,
   createTaskValues: PropTypes.object.isRequired,
   setCreateTaskValues: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   setOpenInput: PropTypes.func.isRequired,
   openInput: PropTypes.bool.isRequired,

@@ -4,8 +4,9 @@ import SwitchBtn from "./SwitchBtn";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { handleChange } from "./taskHelpers";
 
-const PrioritySwitch = ({ createTaskValues, handleChange }) => {
+const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openPriorityInput, setOpenPriorityInput] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const PrioritySwitch = ({ createTaskValues, handleChange }) => {
           name="priority"
           value={createTaskValues.priority}
           type="number"
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, setCreateTaskValues)}
           slotProps={{
             input: { min: 0, max: 5 },
           }}
@@ -36,7 +37,7 @@ const PrioritySwitch = ({ createTaskValues, handleChange }) => {
 
 PrioritySwitch.propTypes = {
   createTaskValues: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  setCreateTaskValues: PropTypes.func.isRequired,
 };
 
 export default PrioritySwitch;

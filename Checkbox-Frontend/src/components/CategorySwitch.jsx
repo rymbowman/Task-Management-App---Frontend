@@ -4,8 +4,9 @@ import InputBox from "./InputBox";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { handleChange } from "./taskHelpers";
 
-const CategorySwitch = ({ createTaskValues, handleChange }) => {
+const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openCategoryInput, setOpenCategoryInput] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const CategorySwitch = ({ createTaskValues, handleChange }) => {
           name="category"
           value={createTaskValues.category}
           type="text"
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, setCreateTaskValues)}
         />
       </Collapse>
       ;
@@ -34,7 +35,7 @@ const CategorySwitch = ({ createTaskValues, handleChange }) => {
 
 CategorySwitch.propTypes = {
   createTaskValues: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  setCreateTaskValues: PropTypes.func.isRequired,
 };
 
 export default CategorySwitch;

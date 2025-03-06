@@ -23,11 +23,7 @@ const AddStep = styled(Box)({
   alignItems: "center",
 });
 
-const StepsSwitch = ({
-  createTaskValues,
-  handleChange,
-  setCreateTaskValues,
-}) => {
+const StepsSwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openStepsInput, setOpenStepsInput] = useState(false);
   const [newStep, setNewStep] = useState("");
 
