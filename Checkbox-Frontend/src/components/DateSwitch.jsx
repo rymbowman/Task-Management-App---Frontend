@@ -4,10 +4,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SwitchBtn from "./SwitchBtn";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
+import { handleDateChange } from "./taskHelpers";
 
 const DateSwitch = ({
   name,
   createTaskValues,
+  setCreateTaskValues,
   handleChange,
   labelText,
   setOpenInput,
@@ -31,7 +33,9 @@ const DateSwitch = ({
             <DateField
               label={label}
               value={createTaskValues ? dayjs({ createTaskValues }) : null}
-              onChange={(date) => handleDateChange({ name }, date)}
+              onChange={(date) =>
+                handleDateChange({ name }, date, setCreateTaskValues)
+              }
             />
           </Box>
         </LocalizationProvider>
@@ -43,6 +47,7 @@ const DateSwitch = ({
 DateSwitch.propTypes = {
   name: PropTypes.string.isRequired,
   createTaskValues: PropTypes.object.isRequired,
+  setCreateTaskValues: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   setOpenInput: PropTypes.func.isRequired,

@@ -15,6 +15,7 @@ import { useState } from "react";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
+import { handleAddStep, handleDeleteStep } from "./taskHelpers";
 
 const AddStep = styled(Box)({
   display: "flex",
@@ -22,7 +23,11 @@ const AddStep = styled(Box)({
   alignItems: "center",
 });
 
-const StepsSwitch = ({ createTaskValues, handleChange }) => {
+const StepsSwitch = ({
+  createTaskValues,
+  handleChange,
+  setCreateTaskValues,
+}) => {
   const [openStepsInput, setOpenStepsInput] = useState(false);
   const [newStep, setNewStep] = useState("");
 
@@ -49,7 +54,13 @@ const StepsSwitch = ({ createTaskValues, handleChange }) => {
                 key={index}
                 secondaryAction={
                   <IconButton
-                    onClick={() => handleDeleteStep(index)}
+                    onClick={() =>
+                      handleDeleteStep(
+                        index,
+                        createTaskValues,
+                        setCreateTaskValues
+                      )
+                    }
                     color="primary"
                   >
                     <DeleteIcon />
@@ -87,5 +98,6 @@ const StepsSwitch = ({ createTaskValues, handleChange }) => {
 StepsSwitch.propTypes = {
   createTaskValues: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  setCreateTaskValues: PropTypes.func.isRequired,
 };
 export default StepsSwitch;
