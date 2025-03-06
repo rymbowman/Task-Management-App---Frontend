@@ -1,5 +1,5 @@
 import { Collapse } from "@mui/material";
-import InputBox from "./InputBox";
+import InputBox from "../InputBox";
 import { useState } from "react";
 import SwitchBtn from "./SwitchBtn";
 import NotesIcon from "@mui/icons-material/Notes";

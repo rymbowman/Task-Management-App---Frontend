@@ -9,13 +9,13 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import InputBox from "./InputBox";
 import SwitchBtn from "./SwitchBtn";
 import { useState } from "react";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
 import { handleAddStep, handleDeleteStep } from "./taskHelpers";
+import InputBox from "../InputBox";
 
 const AddStep = styled(Box)({
   display: "flex",

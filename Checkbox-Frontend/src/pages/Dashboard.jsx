@@ -1,5 +1,5 @@
 import { Box, styled } from "@mui/material";
-import CreateTask from "../components/CreateTask";
+import CreateTask from "../components/create-task/CreateTask";
 
 const DashboardContainer = styled(Box)({
   display: "flex",

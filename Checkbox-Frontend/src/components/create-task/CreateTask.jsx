@@ -1,6 +1,6 @@
 import { Box, Collapse, IconButton, styled, Typography } from "@mui/material";
-import InputBox from "./InputBox";
-import PrimaryBtn from "./PrimaryBtn";
+import InputBox from "../InputBox";
+import PrimaryBtn from "../PrimaryBtn";
 import { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { handleChange, handleSubmit } from "./taskHelpers";

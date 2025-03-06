@@ -1,6 +1,6 @@
 import { Collapse } from "@mui/material";
 import SwitchBtn from "./SwitchBtn";
-import InputBox from "./InputBox";
+import InputBox from "../InputBox";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useState } from "react";
 import PropTypes from "prop-types";

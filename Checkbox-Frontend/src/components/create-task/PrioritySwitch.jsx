@@ -1,5 +1,5 @@
 import { Collapse } from "@mui/material";
-import InputBox from "./InputBox";
+import InputBox from "../InputBox";
 import SwitchBtn from "./SwitchBtn";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { useState } from "react";
