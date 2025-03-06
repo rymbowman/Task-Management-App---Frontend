@@ -21,7 +21,6 @@ const DateSwitch = ({
       <SwitchBtn
         name={name}
         value={createTaskValues ? { createTaskValues } : ""}
-        onChange={handleChange}
         icon={iconImage}
         labelText={labelText}
         onClick={() => setOpenInput(!{ openInput })}

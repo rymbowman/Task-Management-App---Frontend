@@ -14,7 +14,6 @@ const NotesSwitch = ({ createTaskValues, setCreateTaskValues }) => {
       <SwitchBtn
         name="notes"
         value={createTaskValues.notes}
-        onChange={handleChange}
         icon={<NotesIcon />}
         labelText="Notes"
         onClick={() => setOpenNotesInput(!openNotesInput)}

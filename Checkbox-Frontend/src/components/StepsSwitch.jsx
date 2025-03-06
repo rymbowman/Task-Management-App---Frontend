@@ -32,7 +32,6 @@ const StepsSwitch = ({ createTaskValues, setCreateTaskValues }) => {
       <SwitchBtn
         name="steps"
         value={createTaskValues.steps}
-        onChange={handleChange}
         icon={<ChecklistIcon />}
         labelText="Steps"
         onClick={() => setOpenStepsInput(!openStepsInput)}

@@ -14,7 +14,6 @@ const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
       <SwitchBtn
         name="category"
         value={createTaskValues.category}
-        onChange={handleChange}
         icon={<CategoryIcon />}
         labelText="Category"
         onClick={() => setOpenCategoryInput(!openCategoryInput)}

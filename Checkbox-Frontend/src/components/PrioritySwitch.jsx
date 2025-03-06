@@ -14,7 +14,6 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
       <SwitchBtn
         name="priority"
         value={createTaskValues.priority}
-        onChange={handleChange}
         icon={<PriorityHighIcon />}
         labelText="Priority"
         onClick={() => setOpenPriorityInput(!openPriorityInput)}

@@ -21,21 +21,13 @@ const LabelBox = styled(Box)({
   gap: "15px",
 });
 
-const SwitchBtn = ({
-  name,
-  value,
-  onChange,
-  icon,
-  labelText,
-  onClick,
-}) => {
+const SwitchBtn = ({ name, value, icon, labelText, onClick }) => {
   return (
     <SwitchItem
       control={<Switch />}
       labelPlacement="start"
       name={name}
       value={value}
-      onChange={onChange}
       label={
         <LabelBox display="flex">
           {icon}
@@ -50,7 +42,6 @@ const SwitchBtn = ({
 SwitchBtn.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
   icon: PropTypes.element.isRequired,
   labelText: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
