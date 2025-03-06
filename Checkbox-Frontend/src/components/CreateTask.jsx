@@ -3,8 +3,8 @@ import InputBox from "./InputBox";
 import PrimaryBtn from "./PrimaryBtn";
 import { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import dayjs from "dayjs";
+import { handleChange, handleSubmit } from "./taskHelpers";
+import SwitchContainer from "./SwitchContainer";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -40,7 +40,7 @@ const CreateTask = () => {
         name="title"
         value={createTaskValues.title}
         type="text"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e, setCreateTaskValues)}
         isValid={validInput}
       />
       <InputBox
@@ -48,7 +48,7 @@ const CreateTask = () => {
         name="description"
         value={createTaskValues.description}
         type="text"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e, setCreateTaskValues)}
         isValid={validInput}
         multiline={true}
         rows={2}
@@ -56,8 +56,18 @@ const CreateTask = () => {
       <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
         <MoreVertIcon />
       </IconButton>
-      <Collapse in={openTaskDetails} timeout="auto"></Collapse>
-      <PrimaryBtn buttonText={"Create Task"} onClick={handleSubmit} />
+      <Collapse in={openTaskDetails} timeout="auto">
+        <SwitchContainer
+          createTaskValues={createTaskValues}
+          setCreateTaskValues={setCreateTaskValues}
+        />
+      </Collapse>
+      <PrimaryBtn
+        buttonText={"Create Task"}
+        onClick={() =>
+          handleSubmit(createTaskValues, setValidInput, setCreateTaskValues)
+        }
+      />
     </TaskCreationContainer>
   );
 };
