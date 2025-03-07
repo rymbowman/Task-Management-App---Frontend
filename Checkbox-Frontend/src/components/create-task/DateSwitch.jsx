@@ -1,14 +1,23 @@
-import { Box, Collapse } from "@mui/material";
-import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
+import { Box, Collapse, styled } from "@mui/material";
+import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SwitchBtn from "./SwitchBtn";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { handleDateChange } from "./taskHelpers";
+import { useState } from "react";
+
+const InputContainer = styled(Collapse)({
+  width: "90%",
+  margin: "auto",
+});
+
+const DateInput = styled(DateCalendar)({
+  width: "100%",
+});
 
 const DateSwitch = ({
   name,
-  createTaskValues,
   setCreateTaskValues,
   labelText,
   setOpenInput,
@@ -16,8 +25,15 @@ const DateSwitch = ({
   iconImage,
   label,
 }) => {
+  const [value, setValue] = useState(dayjs());
+
+  const handleDateChangeInternal = (date) => {
+    setValue(date);
+    handleDateChange(name, date, setCreateTaskValues);
+  };
+
   return (
-    <>
+    <Box>
       <SwitchBtn
         name={name}
         icon={iconImage}
@@ -25,26 +41,24 @@ const DateSwitch = ({
         openInput={openInput}
         setOpenInput={setOpenInput}
       />
-      <Collapse in={openInput} timeout="auto">
+      <InputContainer in={openInput} timeout="auto">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box components={["DateField"]}>
-            <DateField
+            <DateInput
               label={label}
-              value={createTaskValues ? dayjs({ createTaskValues }) : null}
-              onChange={(date) =>
-                handleDateChange(name, date, setCreateTaskValues)
-              }
+              value={value}
+              onChange={handleDateChangeInternal}
+              minDate={dayjs()}
             />
           </Box>
         </LocalizationProvider>
-      </Collapse>
-    </>
+      </InputContainer>
+    </Box>
   );
 };
 
 DateSwitch.propTypes = {
   name: PropTypes.string.isRequired,
-  createTaskValues: PropTypes.object.isRequired,
   setCreateTaskValues: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   setOpenInput: PropTypes.func.isRequired,

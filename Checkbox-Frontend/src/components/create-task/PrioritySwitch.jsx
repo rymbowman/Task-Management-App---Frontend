@@ -1,16 +1,21 @@
-import { Collapse } from "@mui/material";
-import InputBox from "./InputBox";
+import { Box, Collapse, styled } from "@mui/material";
+import InputBox from "../InputBox";
 import SwitchBtn from "./SwitchBtn";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { handleChange } from "./taskHelpers";
 
+const InputContainer = styled(Collapse)({
+  width: "90%",
+  margin: "auto",
+});
+
 const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openPriorityInput, setOpenPriorityInput] = useState(false);
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name="priority"
         icon={<PriorityHighIcon />}
@@ -18,9 +23,9 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
         openInput={openPriorityInput}
         setOpenInput={setOpenPriorityInput}
       />
-      <Collapse in={openPriorityInput} timeout="auto">
+      <InputContainer in={openPriorityInput} timeout="auto">
         <InputBox
-          label="Priority"
+          label="Priority(0 Lowest - 5 Highest)"
           name="priority"
           value={createTaskValues.priority}
           type="number"
@@ -29,8 +34,8 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
             input: { min: 0, max: 5 },
           }}
         />
-      </Collapse>
-    </>
+      </InputContainer>
+    </Box>
   );
 };
 
