@@ -27,10 +27,15 @@ const InputBox = ({
         rows={rows}
         sx={{
           width: "100%",
+          borderRadius: "5px",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
               border:
-                isValid === undefined ? "" : isValid ? "" : "2px solid red",
+                isValid === undefined
+                  ? ""
+                  : isValid
+                  ? "1px solid #8FBC8F"
+                  : "2px solid red",
             },
           },
         }}

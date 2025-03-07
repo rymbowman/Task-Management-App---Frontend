@@ -15,6 +15,7 @@ const LabelBox = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   gap: "15px",
+  color: "#1976d2",
 });
 
 const SwitchBtn = ({ name, icon, labelText, openInput, setOpenInput }) => {
@@ -31,7 +32,7 @@ const SwitchBtn = ({ name, icon, labelText, openInput, setOpenInput }) => {
         onChange={(e) =>
           handleSwitchToggle(e, setChecked, openInput, setOpenInput)
         }
-        sx={{ "& .MuiSwitch-switchBase.Mui-checked": { color: "blue" } }}
+        sx={{ "& .MuiSwitch-switchBase.Mui-checked": { color: "#1976d2" } }}
       />
     </SwitchItem>
   );
