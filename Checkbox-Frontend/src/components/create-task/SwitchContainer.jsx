@@ -7,17 +7,13 @@ import StepsSwitch from "./StepsSwitch";
 import DateSwitch from "./DateSwitch";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { FormGroup, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
-const MainContainer = styled(FormGroup)({
+const MainContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
-  width: "100%",
-  padding: "10px",
-  background: "#fff",
-  borderRadius: "8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  gap: "15px",
+  width: "75%",
 });
 
 const SwitchContainer = ({ createTaskValues, setCreateTaskValues }) => {
