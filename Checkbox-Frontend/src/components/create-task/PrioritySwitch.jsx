@@ -1,4 +1,4 @@
-import { Collapse, styled } from "@mui/material";
+import { Box, Collapse, styled } from "@mui/material";
 import InputBox from "../InputBox";
 import SwitchBtn from "./SwitchBtn";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
@@ -15,7 +15,7 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openPriorityInput, setOpenPriorityInput] = useState(false);
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name="priority"
         icon={<PriorityHighIcon />}
@@ -35,7 +35,7 @@ const PrioritySwitch = ({ createTaskValues, setCreateTaskValues }) => {
           }}
         />
       </InputContainer>
-    </>
+    </Box>
   );
 };
 

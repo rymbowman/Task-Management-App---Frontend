@@ -1,4 +1,4 @@
-import { Collapse, styled } from "@mui/material";
+import { Box, Collapse, styled } from "@mui/material";
 import SwitchBtn from "./SwitchBtn";
 import InputBox from "../InputBox";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -15,7 +15,7 @@ const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openCategoryInput, setOpenCategoryInput] = useState(false);
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name="category"
         icon={<CategoryIcon />}
@@ -32,7 +32,7 @@ const CategorySwitch = ({ createTaskValues, setCreateTaskValues }) => {
           onChange={(e) => handleChange(e, setCreateTaskValues)}
         />
       </InputContainer>
-    </>
+    </Box>
   );
 };
 

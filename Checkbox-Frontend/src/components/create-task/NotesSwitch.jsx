@@ -1,4 +1,4 @@
-import { Collapse, styled } from "@mui/material";
+import { Box, Collapse, styled } from "@mui/material";
 import InputBox from "../InputBox";
 import { useState } from "react";
 import SwitchBtn from "./SwitchBtn";
@@ -15,7 +15,7 @@ const NotesSwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [openNotesInput, setOpenNotesInput] = useState(false);
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name="notes"
         icon={<NotesIcon />}
@@ -34,7 +34,7 @@ const NotesSwitch = ({ createTaskValues, setCreateTaskValues }) => {
           rows={4}
         />
       </InputContainer>
-    </>
+    </Box>
   );
 };
 NotesSwitch.propTypes = {

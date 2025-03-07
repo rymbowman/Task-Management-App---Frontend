@@ -33,7 +33,7 @@ const DateSwitch = ({
   };
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name={name}
         icon={iconImage}
@@ -53,7 +53,7 @@ const DateSwitch = ({
           </Box>
         </LocalizationProvider>
       </InputContainer>
-    </>
+    </Box>
   );
 };
 

@@ -47,7 +47,7 @@ const StepsSwitch = ({ createTaskValues, setCreateTaskValues }) => {
   const [newStep, setNewStep] = useState("");
 
   return (
-    <>
+    <Box>
       <SwitchBtn
         name="steps"
         icon={<ChecklistIcon />}
@@ -101,7 +101,7 @@ const StepsSwitch = ({ createTaskValues, setCreateTaskValues }) => {
           </AddBtn>
         </AddStep>
       </InputContainer>
-    </>
+    </Box>
   );
 };
 
