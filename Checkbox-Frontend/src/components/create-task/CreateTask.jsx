@@ -5,6 +5,7 @@ import { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { handleChange, handleSubmit } from "./taskHelpers";
 import SwitchContainer from "./SwitchContainer";
+import PropTypes from "prop-types";
 
 const TaskCreationContainer = styled(Box)({
   display: "flex",
@@ -18,7 +19,7 @@ const TaskCreationContainer = styled(Box)({
   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 });
 
-const CreateTask = () => {
+const CreateTask = ({ handleClose }) => {
   const [validInput, setValidInput] = useState(true);
   const [createTaskValues, setCreateTaskValues] = useState({
     title: "",
@@ -35,41 +36,49 @@ const CreateTask = () => {
   return (
     <TaskCreationContainer>
       <Typography variant="h4">Create Task</Typography>
-      <InputBox
-        label={"Task Name"}
-        name="title"
-        value={createTaskValues.title}
-        type="text"
-        onChange={(e) => handleChange(e, setCreateTaskValues)}
-        isValid={validInput}
-      />
-      <InputBox
-        label={"Task Description"}
-        name="description"
-        value={createTaskValues.description}
-        type="text"
-        onChange={(e) => handleChange(e, setCreateTaskValues)}
-        isValid={validInput}
-        multiline={true}
-        rows={2}
-      />
-      <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
-        <MoreVertIcon />
-      </IconButton>
-      <Collapse in={openTaskDetails} timeout="auto">
-        <SwitchContainer
-          createTaskValues={createTaskValues}
-          setCreateTaskValues={setCreateTaskValues}
-        />
-      </Collapse>
+      <Box display={"flex"} gap={"20px"}>
+        <Box>
+          <InputBox
+            label={"Task Name"}
+            name="title"
+            value={createTaskValues.title}
+            type="text"
+            onChange={(e) => handleChange(e, setCreateTaskValues)}
+            isValid={validInput}
+          />
+          <InputBox
+            label={"Task Description"}
+            name="description"
+            value={createTaskValues.description}
+            type="text"
+            onChange={(e) => handleChange(e, setCreateTaskValues)}
+            isValid={validInput}
+            multiline={true}
+            rows={2}
+          />
+        </Box>
+        <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
+          <MoreVertIcon />
+        </IconButton>
+        <Collapse in={openTaskDetails} timeout="auto" orientation="horizontal">
+          <SwitchContainer
+            createTaskValues={createTaskValues}
+            setCreateTaskValues={setCreateTaskValues}
+          />
+        </Collapse>
+      </Box>
       <PrimaryBtn
         buttonText={"Create Task"}
-        onClick={() =>
-          handleSubmit(createTaskValues, setValidInput, setCreateTaskValues)
-        }
+        onClick={() => {
+          handleSubmit(createTaskValues, setValidInput, setCreateTaskValues);
+          handleClose();
+        }}
       />
     </TaskCreationContainer>
   );
 };
 
+CreateTask.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+};
 export default CreateTask;
