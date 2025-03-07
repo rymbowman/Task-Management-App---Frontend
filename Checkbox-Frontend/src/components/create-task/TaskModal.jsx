@@ -1,8 +1,27 @@
-import { Fab, Modal, Tooltip } from "@mui/material";
+import { Box, Fab, Modal, styled, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import CreateTask from "./CreateTask";
 
+const ModalMainContainer = styled(Modal)({
+  position: "fixed",
+  margin: "auto",
+  width: "50%",
+  height: "90%",
+  borderRadius: "10px",
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+});
+
+const ModalContentContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  height: "100%",
+  alignItems: "center",
+  overflow: "auto",
+  borderRadius: "10px",
+  gap: "15px",
+});
 const TaskModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -14,14 +33,11 @@ const TaskModal = () => {
           <AddIcon />
         </Fab>
       </Tooltip>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <CreateTask handleClose={handleClose} />
-      </Modal>
+      <ModalMainContainer open={open} onClose={handleClose}>
+        <ModalContentContainer>
+          <CreateTask handleClose={handleClose} />
+        </ModalContentContainer>
+      </ModalMainContainer>
     </>
   );
 };

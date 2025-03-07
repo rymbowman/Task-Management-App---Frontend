@@ -1,8 +1,7 @@
-import { Box, Collapse, IconButton, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import InputBox from "../InputBox";
 import PrimaryBtn from "../PrimaryBtn";
 import { useState } from "react";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { handleChange, handleSubmit } from "./taskHelpers";
 import SwitchContainer from "./SwitchContainer";
 import PropTypes from "prop-types";
@@ -12,11 +11,20 @@ const TaskCreationContainer = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   gap: "20px",
-  width: "40%",
   padding: "20px",
   background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
-  borderRadius: "8px",
-  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+  overflow: "auto",
+  height: "100%",
+  width: "100%",
+  scrollbarWidth: "thin",
+  overflowY: "scroll",
+});
+
+const MainInfoContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+  width: "75%",
 });
 
 const CreateTask = ({ handleClose }) => {
@@ -31,49 +39,45 @@ const CreateTask = ({ handleClose }) => {
     notes: "",
     reminder: null,
   });
-  const [openTaskDetails, setOpenTaskDetails] = useState(false);
 
   return (
     <TaskCreationContainer>
-      <Typography variant="h4">Create Task</Typography>
-      <Box display={"flex"} gap={"20px"}>
-        <Box>
-          <InputBox
-            label={"Task Name"}
-            name="title"
-            value={createTaskValues.title}
-            type="text"
-            onChange={(e) => handleChange(e, setCreateTaskValues)}
-            isValid={validInput}
-          />
-          <InputBox
-            label={"Task Description"}
-            name="description"
-            value={createTaskValues.description}
-            type="text"
-            onChange={(e) => handleChange(e, setCreateTaskValues)}
-            isValid={validInput}
-            multiline={true}
-            rows={2}
-          />
-        </Box>
-        <IconButton onClick={() => setOpenTaskDetails(!openTaskDetails)}>
-          <MoreVertIcon />
-        </IconButton>
-        <Collapse in={openTaskDetails} timeout="auto" orientation="horizontal">
-          <SwitchContainer
-            createTaskValues={createTaskValues}
-            setCreateTaskValues={setCreateTaskValues}
-          />
-        </Collapse>
-      </Box>
-      <PrimaryBtn
-        buttonText={"Create Task"}
-        onClick={() => {
-          handleSubmit(createTaskValues, setValidInput, setCreateTaskValues);
-          handleClose();
-        }}
+      <Typography variant="h4" style={{ color: "#8FBC8F" }}>
+        Create Task
+      </Typography>
+      <MainInfoContainer>
+        <InputBox
+          label={"Task Name"}
+          name="title"
+          value={createTaskValues.title}
+          type="text"
+          onChange={(e) => handleChange(e, setCreateTaskValues)}
+          isValid={validInput}
+        />
+        <InputBox
+          label={"Task Description"}
+          name="description"
+          value={createTaskValues.description}
+          type="text"
+          onChange={(e) => handleChange(e, setCreateTaskValues)}
+          isValid={validInput}
+          multiline={true}
+          rows={2}
+        />
+      </MainInfoContainer>
+      <SwitchContainer
+        createTaskValues={createTaskValues}
+        setCreateTaskValues={setCreateTaskValues}
       />
+      <Box>
+        <PrimaryBtn
+          buttonText={"Create Task"}
+          onClick={() => {
+            handleSubmit(createTaskValues, setValidInput, setCreateTaskValues);
+            handleClose();
+          }}
+        />
+      </Box>
     </TaskCreationContainer>
   );
 };
