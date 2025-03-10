@@ -1,6 +1,7 @@
 import { Box, styled } from "@mui/material";
 import TaskModal from "../components/create-task/TaskModal";
 import Grid from "@mui/material/Grid2";
+import Navbar from "../layouts/Navbar";
 
 const DashboardContainer = styled(Grid)({
   height: "100vh",
@@ -11,6 +12,7 @@ const DashboardContainer = styled(Grid)({
 const Dashboard = () => {
   return (
     <Box sx={{ flexGrow: 1, border: "1px solid black" }}>
+      <Navbar />
       <DashboardContainer container spacing={2}>
         <Grid size={10} sx={{ border: "1px solid black" }}>
           <Box>Content for the main area</Box>
