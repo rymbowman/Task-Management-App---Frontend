@@ -2,6 +2,7 @@ import { Box, styled } from "@mui/material";
 import TaskModal from "../components/create-task/TaskModal";
 import Grid from "@mui/material/Grid2";
 import Navbar from "../layouts/Navbar";
+import { useState } from "react";
 
 const DashboardContainer = styled(Grid)({
   height: "100vh",
@@ -10,9 +11,20 @@ const DashboardContainer = styled(Grid)({
 });
 
 const Dashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handleSidebar = () => {
+    if (sidebarOpen === true) {
+      setSidebarOpen(false);
+      console.log("closing sidebar");
+    } else {
+      setSidebarOpen(true);
+      console.log("opening sidebar");
+    }
+  };
   return (
     <Box sx={{ flexGrow: 1, border: "1px solid black" }}>
-      <Navbar />
+      <Navbar handleSidebar={handleSidebar} sidebarOpen={sidebarOpen} />
+
       <DashboardContainer container spacing={2}>
         <Grid size={10} sx={{ border: "1px solid black" }}>
           <Box>Content for the main area</Box>
