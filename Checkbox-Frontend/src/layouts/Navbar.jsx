@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import MenuIcon from "@mui/icons-material/Menu";
+import Sidebar from "../components/nav/Sidebar";
+import PropTypes from "prop-types";
 
 const Nav = styled(AppBar)({
   backgroundColor: "transparent",
@@ -49,25 +51,32 @@ const ProfileAvatar = styled(Avatar)({
   },
 });
 
-const Navbar = () => {
+const Navbar = ({ handleSidebar, sidebarOpen }) => {
   return (
-    <Nav position="static">
-      <NavToolbar>
-        <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+    <>
+      <Nav position="static">
+        <NavToolbar>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <IconBtn onClick={handleSidebar}>
+              <MenuBtn />
+            </IconBtn>
+            <Logo>
+              <CheckIcon sx={{ fontSize: 40 }} />
+              <Typography variant="h4">Checkbox</Typography>
+            </Logo>
+          </Box>
           <IconBtn>
-            <MenuBtn />
+            <ProfileAvatar></ProfileAvatar>
           </IconBtn>
-          <Logo>
-            <CheckIcon sx={{ fontSize: 40 }} />
-            <Typography variant="h4">Checkbox</Typography>
-          </Logo>
-        </Box>
-        <IconBtn>
-          <ProfileAvatar></ProfileAvatar>
-        </IconBtn>
-      </NavToolbar>
-    </Nav>
+        </NavToolbar>
+      </Nav>
+      <Sidebar sidebarOpen={sidebarOpen} handleSidebar={handleSidebar} />
+    </>
   );
 };
 
+Navbar.propTypes = {
+  handleSidebar: PropTypes.func.isRequired,
+  sidebarOpen: PropTypes.bool.isRequired,
+};
 export default Navbar;
