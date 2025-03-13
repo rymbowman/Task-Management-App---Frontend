@@ -1,8 +1,11 @@
 import { Menu, MenuItem } from "@mui/material";
+import PropTypes from "prop-types";
 
 const ProfileMenu = ({ anchorEl, handleClose }) => {
+  const open = Boolean(anchorEl);
+
   return (
-    <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+    <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
       <MenuItem onClick={handleClose}>Profile</MenuItem>
       <MenuItem onClick={handleClose}>My account</MenuItem>
       <MenuItem onClick={handleClose}>Logout</MenuItem>

@@ -11,6 +11,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import MenuIcon from "@mui/icons-material/Menu";
 import Sidebar from "../components/nav/Sidebar";
 import PropTypes from "prop-types";
+import ProfileMenu from "../components/nav/ProfileMenu";
+import { useState } from "react";
 
 const Nav = styled(AppBar)({
   backgroundColor: "transparent",
@@ -52,6 +54,14 @@ const ProfileAvatar = styled(Avatar)({
 });
 
 const Navbar = ({ handleSidebar, sidebarOpen }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
       <Nav position="static">
@@ -65,9 +75,10 @@ const Navbar = ({ handleSidebar, sidebarOpen }) => {
               <Typography variant="h4">Checkbox</Typography>
             </Logo>
           </Box>
-          <IconBtn>
+          <IconBtn onClick={handleClick}>
             <ProfileAvatar></ProfileAvatar>
           </IconBtn>
+          <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} />
         </NavToolbar>
       </Nav>
       <Sidebar sidebarOpen={sidebarOpen} handleSidebar={handleSidebar} />
