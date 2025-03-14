@@ -9,28 +9,42 @@ import {
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import MenuIcon from "@mui/icons-material/Menu";
-import Sidebar from "../components/nav/Sidebar";
 import PropTypes from "prop-types";
 import ProfileMenu from "../components/nav/ProfileMenu";
 import { useState } from "react";
 
-const Nav = styled(AppBar)({
-  backgroundColor: "transparent",
-  boxShadow: "none",
-});
+const drawerWidth = 240;
 
-const NavToolbar = styled(Toolbar)({
+const Nav = styled(AppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const NavToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
-  padding: "0 20px",
-});
+  padding: theme.spacing(0, 2.5), // Use theme.spacing for padding
+}));
 
-const Logo = styled(Box)({
+const Logo = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  color: "#8FBC8F",
-  gap: "5px",
-});
+  color: theme.palette.primary.main,
+  gap: theme.spacing(0.625),
+}));
 
 const IconBtn = styled(IconButton)({
   "&:hover": {
@@ -38,20 +52,20 @@ const IconBtn = styled(IconButton)({
   },
 });
 
-const MenuBtn = styled(MenuIcon)({
+const MenuBtn = styled(MenuIcon)(({ theme }) => ({
   fontSize: 30,
-  color: "#8FBC8F",
+  color: theme.palette.primary.main,
   "&:hover": {
-    color: "#2E8B57",
+    color: theme.palette.secondary.main,
   },
-});
+}));
 
-const ProfileAvatar = styled(Avatar)({
-  backgroundColor: "#8FBC8F",
+const ProfileAvatar = styled(Avatar)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
   "&:hover": {
-    backgroundColor: "#2E8B57",
+    backgroundColor: theme.palette.secondary.main,
   },
-});
+}));
 
 const Navbar = ({ handleSidebar, sidebarOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,7 +78,7 @@ const Navbar = ({ handleSidebar, sidebarOpen }) => {
 
   return (
     <>
-      <Nav position="static">
+      <Nav position="static" open={sidebarOpen}>
         <NavToolbar>
           <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
             <IconBtn onClick={handleSidebar}>
@@ -81,7 +95,6 @@ const Navbar = ({ handleSidebar, sidebarOpen }) => {
           <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} />
         </NavToolbar>
       </Nav>
-      <Sidebar sidebarOpen={sidebarOpen} handleSidebar={handleSidebar} />
     </>
   );
 };

@@ -12,24 +12,35 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PropTypes from "prop-types";
+import theme from "../../theme/theme";
 
 const sampleCategories = ["Work", "Personal", "Shopping", "Others"];
 const taskOptions = ["All Tasks", "Completed", "Overdue", "Archived"];
 
-const DrawerHeader = styled(Box)({
+const drawerWidth = 240;
+
+const DrawerHeader = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-});
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
 const Sidebar = ({ handleSidebar, sidebarOpen }) => {
   return (
     <>
       <Drawer
         sx={{
-          width: 240,
+          width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: 240,
+            width: drawerWidth,
             boxSizing: "border-box",
+            transition: theme.transitions.create("width", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           },
         }}
         anchor="left"
