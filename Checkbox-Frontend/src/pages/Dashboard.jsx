@@ -1,38 +1,73 @@
 import { Box, styled } from "@mui/material";
 import TaskModal from "../components/create-task/TaskModal";
 import Grid from "@mui/material/Grid2";
+import Navbar from "../layouts/Navbar";
+import { useState } from "react";
+import Sidebar from "../components/nav/Sidebar";
 
-const DashboardContainer = styled(Grid)({
-  height: "100vh",
-  width: "100%",
-  background: "linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)",
-});
+const drawerWidth = 240;
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  })
+);
 
 const Dashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+    console.log(sidebarOpen ? "closing sidebar" : "opening sidebar");
+  };
+
   return (
-    <Box sx={{ flexGrow: 1, border: "1px solid black" }}>
-      <DashboardContainer container spacing={2}>
-        <Grid size={10} sx={{ border: "1px solid black" }}>
-          <Box>Content for the main area</Box>
+    <Box
+      sx={{
+        border: "1px solid black",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Navbar handleSidebar={handleSidebar} sidebarOpen={sidebarOpen} />
+      <Sidebar handleSidebar={handleSidebar} sidebarOpen={sidebarOpen} />
+      <Main open={sidebarOpen}>
+        <Grid container spacing={2}>
+          <Grid size={10} sx={{ border: "1px solid black" }}>
+            <Box>Content for the main area</Box>
+          </Grid>
+          <Grid
+            size={2}
+            sx={{
+              border: "1px solid black",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TaskModal />
+          </Grid>
+          <Grid size={4} sx={{ border: "1px solid black" }}>
+            <Box>Additional content or widgets</Box>
+          </Grid>
+          <Grid size={8} sx={{ border: "1px solid black" }}>
+            <Box>More content for the main area</Box>
+          </Grid>
         </Grid>
-        <Grid
-          size={2}
-          sx={{
-            border: "1px solid black",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TaskModal />
-        </Grid>
-        <Grid size={4} sx={{ border: "1px solid black" }}>
-          <Box>Additional content or widgets</Box>
-        </Grid>
-        <Grid size={8} sx={{ border: "1px solid black" }}>
-          <Box>More content for the main area</Box>
-        </Grid>
-      </DashboardContainer>
+      </Main>
     </Box>
   );
 };
