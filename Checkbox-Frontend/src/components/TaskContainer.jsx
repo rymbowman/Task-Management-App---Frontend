@@ -1,11 +1,15 @@
 import {
+  Box,
   Checkbox,
+  Chip,
   Collapse,
   IconButton,
   List,
   ListItemButton,
   ListItemText,
   ListSubheader,
+  Paper,
+  Tooltip,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -81,6 +85,10 @@ const tasks = [
 const TaskContainer = () => {
   const [openTasks, setOpenTasks] = useState([]);
 
+  const uniqueCategories = [
+    ...new Set(tasks.map((task) => task.details.category)),
+  ];
+
   const handleOpenDetails = (taskId) => {
     if (openTasks.includes(taskId)) {
       setOpenTasks(openTasks.filter((task) => task !== taskId));
@@ -90,51 +98,72 @@ const TaskContainer = () => {
   };
 
   return (
-    <List
-      sx={{ width: "100%", bgcolor: "background.paper" }}
-      component="nav"
-      subheader={<ListSubheader>Tasks</ListSubheader>}
-    >
-      {tasks.map((task, index) => (
-        <>
-          <ListItemButton key={index} value={task.id}>
-            <Checkbox edge="start" tabIndex={-1} disableRipple />
-            <ListItemText primary={task.title} />
-            {openTasks.includes(task.id) ? (
-              <IconButton onClick={() => handleOpenDetails(task.id)}>
-                <ExpandLess />
-              </IconButton>
-            ) : (
-              <IconButton
-                onClick={() => handleOpenDetails(task.id)}
-                value={task.id}
-              >
-                <ExpandMore />
-              </IconButton>
-            )}
+    <Box>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          p: 0.5,
+          m: 0,
+        }}
+        component="ul"
+      >
+        {uniqueCategories.map((category, index) => (
+          <ListItemButton key={index} component="li">
+            <Chip label={category} />
           </ListItemButton>
-          <Collapse
-            in={openTasks.includes(task.id)}
-            timeout="auto"
-            unmountOnExit
-          >
-            <List component="div" disablePadding>
-              <ListItemText
-                primary={`Description: ${task.details.description}`}
-              />
-              <ListItemText primary={`Category: ${task.details.category}`} />
-              <ListItemText primary={`Due Date: ${task.details.dueDate}`} />
-              <ListItemText primary={`Priority: ${task.details.priority}`} />
-              <ListItemText
-                primary={`Steps: ${task.details.steps.join(", ")}`}
-              />
-              <ListItemText primary={`Notes: ${task.details.notes}`} />
-              <ListItemText primary={`Reminder: ${task.details.reminder}`} />
-            </List>
-          </Collapse>
-        </>
-      ))}
-    </List>
+        ))}
+      </Paper>
+      <List
+        sx={{ width: "100%", bgcolor: "background.paper" }}
+        component="nav"
+        subheader={<ListSubheader>Tasks</ListSubheader>}
+      >
+        {tasks.map((task, index) => (
+          <>
+            <ListItemButton key={index} value={task.id}>
+              <Tooltip title="Task Completed?" placement="bottom">
+                <Checkbox edge="start" tabIndex={-1} disableRipple />
+              </Tooltip>
+              <ListItemText primary={task.title} />
+              {openTasks.includes(task.id) ? (
+                <IconButton onClick={() => handleOpenDetails(task.id)}>
+                  <ExpandLess />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={() => handleOpenDetails(task.id)}
+                  value={task.id}
+                >
+                  <ExpandMore />
+                </IconButton>
+              )}
+            </ListItemButton>
+            <Collapse
+              in={openTasks.includes(task.id)}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List component="div" disablePadding>
+                <ListItemText
+                  primary={`Description: ${task.details.description}`}
+                />
+                <ListItemText primary={`Category: ${task.details.category}`} />
+                <ListItemText primary={`Due Date: ${task.details.dueDate}`} />
+                <ListItemText primary={`Priority: ${task.details.priority}`} />
+                <ListItemText
+                  primary={`Steps: ${task.details.steps.join(", ")}`}
+                />
+                <ListItemText primary={`Notes: ${task.details.notes}`} />
+                <ListItemText primary={`Reminder: ${task.details.reminder}`} />
+              </List>
+            </Collapse>
+          </>
+        ))}
+      </List>
+    </Box>
   );
 };
 
