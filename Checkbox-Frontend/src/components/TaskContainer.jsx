@@ -111,7 +111,12 @@ const TaskContainer = () => {
   };
 
   return (
-    <Box sx={{ border: "1px solid black", width: "100%" }}>
+    <Box
+      sx={{
+        border: "1px solid black",
+        width: "100%",
+      }}
+    >
       <Paper
         elevation={2}
         sx={{
@@ -160,10 +165,26 @@ const TaskContainer = () => {
           />
         ))}
       </Paper>
-      <List sx={{ width: "100%", bgcolor: "background.paper" }} component="nav">
+      <List
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+          height: "350px",
+          overflowY: "auto",
+        }}
+        component="nav"
+      >
         {filteredTasks.map((task) => (
-          <ListItem key={task.id} disablePadding>
-            <ListItemButton value={task.id}>
+          <ListItem
+            key={task.id}
+            disablePadding
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <ListItemButton value={task.id} sx={{ width: "100%" }}>
               <Tooltip title="Task Completed?" placement="bottom">
                 <Checkbox edge="start" tabIndex={-1} disableRipple />
               </Tooltip>
@@ -185,8 +206,21 @@ const TaskContainer = () => {
               in={openTasks.includes(task.id)}
               timeout="auto"
               unmountOnExit
+              sx={{
+                width: "100%",
+              }}
             >
-              <List component="div" disablePadding>
+              <List
+                component="div"
+                disablePadding
+                sx={{
+                  width: "60%",
+                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <ListItemText
                   primary={`Description: ${task.details.description}`}
                 />
