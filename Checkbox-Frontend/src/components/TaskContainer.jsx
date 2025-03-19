@@ -82,10 +82,13 @@ const tasks = [
     },
   },
 ];
+
 const TaskContainer = () => {
   const [openTasks, setOpenTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState(tasks);
   const [activeChip, setActiveChip] = useState("All");
+  const [checked, setChecked] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   const uniqueCategories = [
     ...new Set(tasks.map((task) => task.details.category)),
@@ -108,6 +111,31 @@ const TaskContainer = () => {
   const resetFilter = () => {
     setFilteredTasks(tasks);
     setActiveChip("All");
+  };
+
+  const handleToggle = (value, taskId) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    const currentTask = tasks.find((task) => task.id === taskId);
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    // Filter `newChecked` to include only steps for the current task
+    const currentTaskCheckedSteps = newChecked.filter((step) =>
+      currentTask.details.steps.includes(step)
+    );
+
+    if (currentTaskCheckedSteps.length === currentTask.details.steps.length) {
+      setCompletedTasks([...completedTasks, taskId]);
+    } else {
+      setCompletedTasks(completedTasks.filter((task) => task !== taskId));
+    }
+
+    setChecked(newChecked);
   };
 
   return (
@@ -186,7 +214,12 @@ const TaskContainer = () => {
           >
             <ListItemButton value={task.id} sx={{ width: "100%" }}>
               <Tooltip title="Task Completed?" placement="bottom">
-                <Checkbox edge="start" tabIndex={-1} disableRipple />
+                <Checkbox
+                  edge="start"
+                  tabIndex={-1}
+                  checked={completedTasks.includes(task.id) ? true : false}
+                  disableRipple
+                />
               </Tooltip>
               <ListItemText primary={task.title} />
               {openTasks.includes(task.id) ? (
@@ -227,9 +260,34 @@ const TaskContainer = () => {
                 <ListItemText primary={`Category: ${task.details.category}`} />
                 <ListItemText primary={`Due Date: ${task.details.dueDate}`} />
                 <ListItemText primary={`Priority: ${task.details.priority}`} />
-                <ListItemText
-                  primary={`Steps: ${task.details.steps.join(", ")}`}
-                />
+                <List
+                  component="ul"
+                  disablePadding
+                  sx={{
+                    width: "60%",
+                    margin: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "7.5px",
+                  }}
+                >
+                  {task.details.steps.map((step, index) => (
+                    <ListItem
+                      key={index}
+                      secondaryAction={
+                        <Checkbox
+                          edge="end"
+                          onChange={handleToggle(step, task.id)}
+                          checked={checked.includes(step)}
+                        />
+                      }
+                      disablePadding
+                    >
+                      {step}
+                    </ListItem>
+                  ))}
+                </List>
                 <ListItemText primary={`Notes: ${task.details.notes}`} />
                 <ListItemText primary={`Reminder: ${task.details.reminder}`} />
               </List>
