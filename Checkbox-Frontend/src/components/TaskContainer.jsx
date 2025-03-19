@@ -5,9 +5,9 @@ import {
   Collapse,
   IconButton,
   List,
+  ListItem,
   ListItemButton,
   ListItemText,
-  ListSubheader,
   Paper,
   Tooltip,
 } from "@mui/material";
@@ -84,6 +84,8 @@ const tasks = [
 ];
 const TaskContainer = () => {
   const [openTasks, setOpenTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
+  const [activeChip, setActiveChip] = useState("All");
 
   const uniqueCategories = [
     ...new Set(tasks.map((task) => task.details.category)),
@@ -97,33 +99,71 @@ const TaskContainer = () => {
     }
   };
 
+  const groupByCategory = (category) => {
+    const filtered = tasks.filter((task) => task.details.category === category);
+    setFilteredTasks(filtered);
+    setActiveChip(category);
+  };
+
+  const resetFilter = () => {
+    setFilteredTasks(tasks);
+    setActiveChip("All");
+  };
+
   return (
-    <Box>
+    <Box sx={{ border: "1px solid black", width: "100%" }}>
       <Paper
+        elevation={2}
         sx={{
           display: "flex",
           justifyContent: "center",
-          flexWrap: "wrap",
-          listStyle: "none",
-          p: 0.5,
-          m: 0,
         }}
         component="ul"
       >
+        <Chip
+          label="All"
+          value="All"
+          variant="outlined"
+          clickable
+          onClick={resetFilter}
+          sx={{
+            margin: 0.5,
+            cursor: "pointer",
+            color: activeChip === "All" ? "primary.main" : "text.primary",
+            backgroundColor:
+              activeChip === "All" ? "rgba(0, 0, 0, 0.1)" : "inherit",
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
+              color: "primary.main",
+            },
+          }}
+        />
         {uniqueCategories.map((category, index) => (
-          <ListItemButton key={index} component="li">
-            <Chip label={category} />
-          </ListItemButton>
+          <Chip
+            key={index}
+            variant="outlined"
+            label={category}
+            value={category}
+            clickable
+            onClick={() => groupByCategory(category)}
+            sx={{
+              margin: 0.5,
+              cursor: "pointer",
+              color: activeChip === category ? "primary.main" : "text.primary",
+              backgroundColor:
+                activeChip === category ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                color: "primary.main",
+              },
+            }}
+          />
         ))}
       </Paper>
-      <List
-        sx={{ width: "100%", bgcolor: "background.paper" }}
-        component="nav"
-        subheader={<ListSubheader>Tasks</ListSubheader>}
-      >
-        {tasks.map((task, index) => (
-          <>
-            <ListItemButton key={index} value={task.id}>
+      <List sx={{ width: "100%", bgcolor: "background.paper" }} component="nav">
+        {filteredTasks.map((task) => (
+          <ListItem key={task.id} disablePadding>
+            <ListItemButton value={task.id}>
               <Tooltip title="Task Completed?" placement="bottom">
                 <Checkbox edge="start" tabIndex={-1} disableRipple />
               </Tooltip>
@@ -160,7 +200,7 @@ const TaskContainer = () => {
                 <ListItemText primary={`Reminder: ${task.details.reminder}`} />
               </List>
             </Collapse>
-          </>
+          </ListItem>
         ))}
       </List>
     </Box>
