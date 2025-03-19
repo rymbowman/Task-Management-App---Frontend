@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  MobileStepper,
   Paper,
   Tooltip,
 } from "@mui/material";
@@ -87,8 +88,8 @@ const TaskContainer = () => {
   const [openTasks, setOpenTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState(tasks);
   const [activeChip, setActiveChip] = useState("All");
-  const [checked, setChecked] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [completedSteps, setCompletedSteps] = useState({});
 
   const uniqueCategories = [
     ...new Set(tasks.map((task) => task.details.category)),
@@ -113,29 +114,31 @@ const TaskContainer = () => {
     setActiveChip("All");
   };
 
-  const handleToggle = (value, taskId) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    const currentTask = tasks.find((task) => task.id === taskId);
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    // Filter `newChecked` to include only steps for the current task
-    const currentTaskCheckedSteps = newChecked.filter((step) =>
-      currentTask.details.steps.includes(step)
-    );
-
-    if (currentTaskCheckedSteps.length === currentTask.details.steps.length) {
-      setCompletedTasks([...completedTasks, taskId]);
-    } else {
+  const handleCompletedTask = (e) => {
+    const taskId = Number(e.target.value);
+    if (completedTasks.includes(taskId)) {
       setCompletedTasks(completedTasks.filter((task) => task !== taskId));
+    } else {
+      setCompletedTasks([...completedTasks, taskId]);
     }
+  };
 
-    setChecked(newChecked);
+  // function to update individual progress bar on step completion
+  const handleTaskProgress = (taskId, step) => {
+    setCompletedSteps((prev) => {
+      const taskSteps = prev[taskId] || [];
+      if (taskSteps.includes(step)) {
+        return {
+          ...prev,
+          [taskId]: taskSteps.filter((s) => s !== step),
+        };
+      } else {
+        return {
+          ...prev,
+          [taskId]: [...taskSteps, step],
+        };
+      }
+    });
   };
 
   return (
@@ -212,16 +215,27 @@ const TaskContainer = () => {
               alignItems: "center",
             }}
           >
-            <ListItemButton value={task.id} sx={{ width: "100%" }}>
+            <ListItemButton
+              value={task.id}
+              sx={{ width: "100%" }}
+              disableRipple
+            >
               <Tooltip title="Task Completed?" placement="bottom">
                 <Checkbox
                   edge="start"
-                  tabIndex={-1}
+                  value={task.id}
                   checked={completedTasks.includes(task.id) ? true : false}
-                  disableRipple
+                  onChange={handleCompletedTask}
                 />
               </Tooltip>
               <ListItemText primary={task.title} />
+              <MobileStepper
+                variant="progress"
+                steps={task.details.steps.length + 1}
+                position="static"
+                activeStep={completedSteps[task.id]?.length || 0}
+                sx={{ maxWidth: 400, flexGrow: 1 }}
+              />
               {openTasks.includes(task.id) ? (
                 <IconButton onClick={() => handleOpenDetails(task.id)}>
                   <ExpandLess />
@@ -278,8 +292,12 @@ const TaskContainer = () => {
                       secondaryAction={
                         <Checkbox
                           edge="end"
-                          onChange={handleToggle(step, task.id)}
-                          checked={checked.includes(step)}
+                          disableRipple
+                          onChange={() => handleTaskProgress(task.id, step)}
+                          checked={
+                            completedSteps[task.id]?.includes(step) || false
+                          }
+                          value={index}
                         />
                       }
                       disablePadding
