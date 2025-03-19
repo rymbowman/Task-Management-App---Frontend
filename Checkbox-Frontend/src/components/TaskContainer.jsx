@@ -23,7 +23,7 @@ const tasks = [
     details: {
       description: "Take the dog for a walk around the block",
       category: "Personal",
-      dueDate: "2021-12-01",
+      dueDate: "2026-12-01",
       priority: "4",
       steps: ["Put on shoes", "Grab leash", "Walk dog"],
       notes: "Make sure to bring water for the dog",
@@ -49,7 +49,7 @@ const tasks = [
     details: {
       description: "Buy groceries",
       category: "Personal",
-      dueDate: "2021-12-01",
+      dueDate: "2026-12-01",
       priority: "2",
       steps: ["Make a list", "Drive to store", "Buy groceries"],
       notes: "Don't forget the milk",
@@ -90,6 +90,8 @@ const TaskContainer = () => {
   const [activeChip, setActiveChip] = useState("All");
   const [completedTasks, setCompletedTasks] = useState([]);
   const [completedSteps, setCompletedSteps] = useState({});
+
+  const currentDate = new Date().toISOString().split("T")[0];
 
   const uniqueCategories = [
     ...new Set(tasks.map((task) => task.details.category)),
@@ -146,6 +148,9 @@ const TaskContainer = () => {
       sx={{
         border: "1px solid black",
         width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Paper
@@ -198,10 +203,14 @@ const TaskContainer = () => {
       </Paper>
       <List
         sx={{
-          width: "100%",
+          width: "80%",
           bgcolor: "background.paper",
           height: "350px",
           overflowY: "auto",
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "8px",
+          gap: "10px",
         }}
         component="nav"
       >
@@ -213,6 +222,15 @@ const TaskContainer = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              borderRadius: "8px",
+              border:
+                task.details.dueDate < currentDate
+                  ? "2px solid red"
+                  : "1px solid rgba(0, 0, 0, 0.1)",
+              backgroundColor:
+                task.details.dueDate < currentDate
+                  ? "rgba(255, 0, 0, 0.1)"
+                  : "inherit",
             }}
           >
             <ListItemButton
@@ -297,8 +315,6 @@ const TaskContainer = () => {
                 <ListItemText
                   primary={`Description: ${task.details.description}`}
                 />
-                <ListItemText primary={`Category: ${task.details.category}`} />
-                <ListItemText primary={`Due Date: ${task.details.dueDate}`} />
                 <ListItemText primary={`Priority: ${task.details.priority}`} />
                 <List
                   component="ul"
@@ -333,7 +349,6 @@ const TaskContainer = () => {
                   ))}
                 </List>
                 <ListItemText primary={`Notes: ${task.details.notes}`} />
-                <ListItemText primary={`Reminder: ${task.details.reminder}`} />
               </List>
             </Collapse>
           </ListItem>
