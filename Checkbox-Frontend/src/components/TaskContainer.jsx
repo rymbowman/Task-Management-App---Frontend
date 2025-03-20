@@ -299,56 +299,133 @@ const TaskContainer = () => {
               unmountOnExit
               sx={{
                 width: "100%",
+                bgcolor: "rgba(240, 240, 240, 0.8)", // Light background for dropdown
+                padding: "16px", // Add padding for spacing
+                borderRadius: "8px", // Rounded corners
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for separation
               }}
             >
               <List
                 component="div"
                 disablePadding
                 sx={{
-                  width: "60%",
-                  margin: "auto",
+                  width: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
+                  gap: "12px",
                 }}
               >
                 <ListItemText
-                  primary={`Description: ${task.details.description}`}
+                  primary="Description"
+                  secondary={task.details.description}
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                      },
+                    },
+                    secondary: {
+                      sx: {
+                        fontSize: "0.875rem",
+                        color: "text.secondary",
+                      },
+                    },
+                  }}
                 />
-                <ListItemText primary={`Priority: ${task.details.priority}`} />
-                <List
-                  component="ul"
-                  disablePadding
+                <ListItemText
+                  primary="Priority"
+                  secondary={`Priority Level: ${task.details.priority}`}
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                      },
+                    },
+                    secondary: {
+                      sx: {
+                        fontSize: "0.875rem",
+                        color: "text.secondary",
+                      },
+                    },
+                  }}
+                />
+
+                <Box
                   sx={{
-                    width: "60%",
-                    margin: "auto",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    gap: "7.5px",
+                    gap: "8px",
+                    padding: "8px",
+                    border: "1px solid rgba(0, 0, 0, 0.1)",
+                    borderRadius: "8px",
+                    bgcolor: "white",
                   }}
                 >
-                  {task.details.steps.map((step, index) => (
-                    <ListItem
-                      key={index}
-                      secondaryAction={
+                  <ListItemText
+                    primary="Steps"
+                    slotProps={{
+                      primary: { fontWeight: "bold", fontSize: "1rem" },
+                    }}
+                  />
+                  <List
+                    component="ul"
+                    disablePadding
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    {task.details.steps.map((step, index) => (
+                      <ListItem
+                        key={index}
+                        disablePadding
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
+                      >
                         <Checkbox
-                          edge="end"
+                          edge="start"
                           disableRipple
                           onChange={() => handleTaskProgress(task.id, step)}
                           checked={
                             completedSteps[task.id]?.includes(step) || false
                           }
-                          value={index}
                         />
-                      }
-                      disablePadding
-                    >
-                      {step}
-                    </ListItem>
-                  ))}
-                </List>
-                <ListItemText primary={`Notes: ${task.details.notes}`} />
+                        <ListItemText
+                          primary={step}
+                          primaryTypographyProps={{
+                            fontSize: "0.875rem",
+                            color: completedSteps[task.id]?.includes(step)
+                              ? "text.disabled"
+                              : "text.primary",
+                            textDecoration: completedSteps[task.id]?.includes(
+                              step
+                            )
+                              ? "line-through"
+                              : "none",
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+
+                <ListItemText
+                  primary="Notes"
+                  secondary={task.details.notes}
+                  slotProps={{
+                    primary: { fontWeight: "bold", fontSize: "1rem" },
+                    secondary: {
+                      fontSize: "0.875rem",
+                      color: "text.secondary",
+                    },
+                  }}
+                />
               </List>
             </Collapse>
           </ListItem>
