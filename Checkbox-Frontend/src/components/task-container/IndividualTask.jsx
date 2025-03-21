@@ -6,7 +6,6 @@ import {
   ListItemButton,
   ListItemText,
   MobileStepper,
-  Tooltip,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -44,16 +43,15 @@ const IndividualTask = ({
       }}
     >
       <ListItemButton value={task.id} sx={{ width: "100%" }} disableRipple>
-        <Tooltip title="Task Completed?" placement="bottom">
-          <Checkbox
-            edge="start"
-            value={task.id}
-            checked={completedTasks.includes(task.id) ? true : false}
-            onChange={(e) =>
-              handleCompletedTask(e, completedTasks, setCompletedTasks)
-            }
-          />
-        </Tooltip>
+        <Checkbox
+          title="Task Completed?"
+          value={task.id}
+          checked={completedTasks.includes(task.id) ? true : false}
+          onChange={(e) =>
+            handleCompletedTask(e, completedTasks, setCompletedTasks)
+          }
+        />
+
         <ListItemText primary={task.title} />
         <Box
           sx={{
