@@ -3,13 +3,28 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  styled,
 } from "@mui/material";
-
 import { handleCompletedTask, handleOpenDetails } from "./taskContainerHelpers";
 import PropTypes from "prop-types";
 import TaskDetailsDropdown from "./TaskDetailsDropdown";
 import DueDateProgress from "./DueDateProgress";
 import TaskExpandButton from "./TaskExpandButton";
+
+const TaskItem = styled(ListItem, {
+  shouldForwardProp: (prop) => prop !== "task" && prop !== "currentDate",
+})(({ task, currentDate }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  borderRadius: "8px",
+  border:
+    task.details.dueDate < currentDate
+      ? "2px solid red"
+      : "1px solid rgba(0, 0, 0, 0.1)",
+  backgroundColor:
+    task.details.dueDate < currentDate ? "rgba(255, 0, 0, 0.1)" : "inherit",
+}));
 
 const IndividualTask = ({
   task,
@@ -22,23 +37,11 @@ const IndividualTask = ({
 }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   return (
-    <ListItem
+    <TaskItem
       key={task.id}
+      task={task}
+      currentDate={currentDate}
       disablePadding
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        borderRadius: "8px",
-        border:
-          task.details.dueDate < currentDate
-            ? "2px solid red"
-            : "1px solid rgba(0, 0, 0, 0.1)",
-        backgroundColor:
-          task.details.dueDate < currentDate
-            ? "rgba(255, 0, 0, 0.1)"
-            : "inherit",
-      }}
     >
       <ListItemButton value={task.id} sx={{ width: "100%" }} disableRipple>
         <Checkbox
@@ -67,7 +70,7 @@ const IndividualTask = ({
         completedSteps={completedSteps}
         setCompletedSteps={setCompletedSteps}
       />
-    </ListItem>
+    </TaskItem>
   );
 };
 
