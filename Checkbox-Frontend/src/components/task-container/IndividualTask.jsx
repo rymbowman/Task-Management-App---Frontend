@@ -1,16 +1,15 @@
 import {
   Checkbox,
-  IconButton,
   ListItem,
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import { handleCompletedTask, handleOpenDetails } from "./taskContainerHelpers";
 import PropTypes from "prop-types";
 import TaskDetailsDropdown from "./TaskDetailsDropdown";
 import DueDateProgress from "./DueDateProgress";
+import TaskExpandButton from "./TaskExpandButton";
 
 const IndividualTask = ({
   task,
@@ -53,20 +52,14 @@ const IndividualTask = ({
 
         <ListItemText primary={task.title} />
         <DueDateProgress task={task} completedSteps={completedSteps} />
-        {openTasks.includes(task.id) ? (
-          <IconButton
-            onClick={() => handleOpenDetails(task.id, openTasks, setOpenTasks)}
-          >
-            <ExpandLess />
-          </IconButton>
-        ) : (
-          <IconButton
-            onClick={() => handleOpenDetails(task.id, openTasks, setOpenTasks)}
-            value={task.id}
-          >
-            <ExpandMore />
-          </IconButton>
-        )}
+
+        <TaskExpandButton
+          taskId={task.id}
+          openTasks={openTasks}
+          handleOpenDetails={(taskId) =>
+            handleOpenDetails(taskId, openTasks, setOpenTasks)
+          }
+        />
       </ListItemButton>
       <TaskDetailsDropdown
         task={task}
