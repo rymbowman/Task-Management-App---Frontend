@@ -1,12 +1,4 @@
-import {
-  Box,
-  Checkbox,
-  Collapse,
-  List,
-  ListItem,
-  ListItemText,
-  styled,
-} from "@mui/material";
+import { Box, Checkbox, Collapse, List, ListItem, styled } from "@mui/material";
 import TaskDetailsListItem from "./TaskDetailsListItem";
 import { handleTaskProgress } from "./taskContainerHelpers";
 import PropTypes from "prop-types";
@@ -18,6 +10,7 @@ const DropdownContainer = styled(Collapse)({
   borderRadius: "8px",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
 });
+
 const StepsContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
@@ -44,26 +37,28 @@ const TaskDetailsDropdown = ({
         component="div"
         disablePadding
         sx={{
-          width: "100%",
           display: "flex",
           flexDirection: "column",
-          gap: "12px",
+          gap: "8px",
         }}
       >
         <TaskDetailsListItem
           primaryText="Description"
           secondaryText={task.details.description}
+          isStep={false}
         />
         <TaskDetailsListItem
           primaryText="Priority"
           secondaryText={task.details.priority}
+          isStep={false}
         />
         <TaskDetailsListItem
           primaryText="Notes"
           secondaryText={task.details.notes}
+          isStep={false}
         />
         <StepsContainer>
-          <TaskDetailsListItem primaryText="Steps" />
+          <TaskDetailsListItem primaryText="Steps" isStep={false} />
           <List
             component="ul"
             disablePadding
@@ -84,26 +79,18 @@ const TaskDetailsDropdown = ({
                 }}
               >
                 <Checkbox
-                  edge="start"
-                  disableRipple
+                  title="Step Complete?"
+                  checked={completedSteps[task.id]?.includes(step) || false}
                   onChange={() =>
                     handleTaskProgress(task.id, step, setCompletedSteps)
                   }
-                  checked={completedSteps[task.id]?.includes(step) || false}
                 />
-                <ListItemText
-                  primary={step}
-                  slotProps={{
-                    primary: {
-                      fontSize: "0.875rem",
-                      color: completedSteps[task.id]?.includes(step)
-                        ? "text.disabled"
-                        : "text.primary",
-                      textDecoration: completedSteps[task.id]?.includes(step)
-                        ? "line-through"
-                        : "none",
-                    },
-                  }}
+                <TaskDetailsListItem
+                  primaryText={step}
+                  isStep={true}
+                  completedSteps={completedSteps}
+                  task={task}
+                  step={step}
                 />
               </ListItem>
             ))}
