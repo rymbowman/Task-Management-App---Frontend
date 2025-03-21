@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid2";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
-import TaskContainer from "../components/TaskContainer";
+import TaskContainer from "../components/task-container/TaskContainer";
 
 const drawerWidth = 240;
 
