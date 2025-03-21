@@ -15,10 +15,8 @@ const StepsContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
-  padding: "8px",
-  border: "1px solid rgba(0, 0, 0, 0.1)",
-  borderRadius: "8px",
-  bgcolor: "white",
+  padding: "8px 0",
+  backgroundColor: "transparent",
 });
 
 const TaskDetailsDropdown = ({
