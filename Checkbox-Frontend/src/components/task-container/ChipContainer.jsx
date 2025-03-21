@@ -1,5 +1,14 @@
-import { Chip, Paper } from "@mui/material";
+import { Paper, styled } from "@mui/material";
 import PropTypes from "prop-types";
+import IndividualChip from "./IndividualChip";
+
+const ChipBag = styled(Paper)({
+  maxWidth: "50%",
+  display: "flex",
+  justifyContent: "space-around",
+  flexWrap: "wrap",
+  padding: "0.5rem",
+});
 
 const ChipContainer = ({
   resetFilter,
@@ -11,56 +20,23 @@ const ChipContainer = ({
   setActiveChip,
 }) => {
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-      component="ul"
-    >
-      <Chip
+    <ChipBag elevation={2} component="div">
+      <IndividualChip
         label="All"
-        value="All"
-        variant="outlined"
-        clickable
         onClick={() => resetFilter(tasks, setFilteredTasks, setActiveChip)}
-        sx={{
-          margin: 0.5,
-          cursor: "pointer",
-          color: activeChip === "All" ? "primary.main" : "text.primary",
-          backgroundColor:
-            activeChip === "All" ? "rgba(0, 0, 0, 0.1)" : "inherit",
-          "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.1)",
-            color: "primary.main",
-          },
-        }}
+        activeChip={activeChip}
       />
       {uniqueCategories.map((category, index) => (
-        <Chip
+        <IndividualChip
           key={index}
-          variant="outlined"
           label={category}
-          value={category}
-          clickable
           onClick={() =>
             groupByCategory(tasks, category, setFilteredTasks, setActiveChip)
           }
-          sx={{
-            margin: 0.5,
-            cursor: "pointer",
-            color: activeChip === category ? "primary.main" : "text.primary",
-            backgroundColor:
-              activeChip === category ? "rgba(0, 0, 0, 0.1)" : "inherit",
-            "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
-              color: "primary.main",
-            },
-          }}
+          activeChip={activeChip}
         />
       ))}
-    </Paper>
+    </ChipBag>
   );
 };
 
