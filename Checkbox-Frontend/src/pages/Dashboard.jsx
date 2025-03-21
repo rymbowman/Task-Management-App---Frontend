@@ -5,6 +5,7 @@ import Navbar from "../layouts/Navbar";
 import { useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
 import TaskContainer from "../components/task-container/TaskContainer";
+import TaskStats from "../components/task-stats/TaskStats";
 
 const drawerWidth = 240;
 
@@ -72,7 +73,7 @@ const Dashboard = () => {
             <Box>Additional content or widgets</Box>
           </Grid>
           <Grid size={8} sx={{ border: "1px solid black" }}>
-            <Box>More content for the main area</Box>
+            <TaskStats />
           </Grid>
         </Grid>
       </Main>
