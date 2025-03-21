@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid2";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
+import TaskContainer from "../components/task-container/TaskContainer";
 
 const drawerWidth = 240;
 
@@ -15,13 +16,13 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    marginLeft: 0,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
+      marginLeft: `${drawerWidth}px`,
     }),
   })
 );
@@ -46,8 +47,15 @@ const Dashboard = () => {
       <Sidebar handleSidebar={handleSidebar} sidebarOpen={sidebarOpen} />
       <Main open={sidebarOpen}>
         <Grid container spacing={2}>
-          <Grid size={10} sx={{ border: "1px solid black" }}>
-            <Box>Content for the main area</Box>
+          <Grid
+            size={10}
+            sx={{
+              border: "1px solid black",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <TaskContainer />
           </Grid>
           <Grid
             size={2}
