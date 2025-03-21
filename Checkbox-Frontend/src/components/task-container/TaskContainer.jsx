@@ -91,6 +91,7 @@ const TaskContainer = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        overflowY: "auto",
       }}
     >
       <ChipContainer

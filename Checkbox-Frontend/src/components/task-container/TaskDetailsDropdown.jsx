@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const DropdownContainer = styled(Collapse)({
   width: "100%",
-  bgcolor: "rgba(240, 240, 240, 0.8)",
+  backgroundColor: "inherit",
   padding: "16px",
   borderRadius: "8px",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",

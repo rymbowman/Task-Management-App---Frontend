@@ -6,7 +6,6 @@ const TaskListContainer = styled(List)({
   width: "80%",
   bgcolor: "background.paper",
   height: "350px",
-  overflowY: "auto",
   display: "flex",
   flexDirection: "column",
   borderRadius: "8px",
