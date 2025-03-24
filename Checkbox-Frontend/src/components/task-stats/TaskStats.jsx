@@ -28,7 +28,7 @@ const tableRows = [
   {
     id: 3,
     title: "Task 3",
-    category: "Category 3",
+    category: "Category 4",
     dueDate: "2021-10-10",
     status: "Completed",
   },
@@ -42,7 +42,7 @@ const tableRows = [
   {
     id: 5,
     title: "Task 5",
-    category: "Category 5",
+    category: "Category 4",
     dueDate: "2021-10-10",
     status: "Completed",
   },
@@ -57,6 +57,8 @@ const headCells = [
 
 const TaskStats = () => {
   const [uniqueCategories, setUniqueCategories] = useState([]);
+  const [displayedCategory, setDisplayedCategory] = useState("All");
+  const [filteredRows, setFilteredRows] = useState(tableRows);
 
   useEffect(() => {
     const categories = tableRows.map((row) => row.category);
@@ -66,7 +68,13 @@ const TaskStats = () => {
 
   return (
     <TableContainer>
-      <TableFilter uniqueCategories={uniqueCategories} />
+      <TableFilter
+        uniqueCategories={uniqueCategories}
+        filteredCategory={displayedCategory}
+        setFilteredCategory={setDisplayedCategory}
+        tableRows={tableRows}
+        setFilteredRows={setFilteredRows}
+      />
       <Table>
         <TableHead>
           <TableRow>
@@ -76,7 +84,7 @@ const TaskStats = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableRows.map((row) => (
+          {filteredRows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.title}</TableCell>
               <TableCell>{row.category}</TableCell>
