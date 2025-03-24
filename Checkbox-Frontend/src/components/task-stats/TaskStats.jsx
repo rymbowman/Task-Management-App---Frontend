@@ -1,3 +1,15 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import PageTracker from "./PageTracker";
+import TableFilter from "./TableFilter";
+import { useEffect, useState } from "react";
+
 const tableRows = [
   {
     id: 1,
@@ -44,7 +56,39 @@ const headCells = [
 ];
 
 const TaskStats = () => {
-  return <div>TaskStats</div>;
+  const [uniqueCategories, setUniqueCategories] = useState([]);
+
+  useEffect(() => {
+    const categories = tableRows.map((row) => row.category);
+    const uniqueCateoryList = [...new Set(categories)];
+    setUniqueCategories(uniqueCateoryList);
+  }, []);
+
+  return (
+    <TableContainer>
+      <TableFilter uniqueCategories={uniqueCategories} />
+      <Table>
+        <TableHead>
+          <TableRow>
+            {headCells.map((headCell) => (
+              <TableCell key={headCell.id}>{headCell.label}</TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tableRows.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.title}</TableCell>
+              <TableCell>{row.category}</TableCell>
+              <TableCell>{row.dueDate}</TableCell>
+              <TableCell>{row.status}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <PageTracker rowCount={tableRows.length} />
+    </TableContainer>
+  );
 };
 
 export default TaskStats;
