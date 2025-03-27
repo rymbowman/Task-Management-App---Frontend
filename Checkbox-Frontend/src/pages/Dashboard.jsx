@@ -5,6 +5,8 @@ import Navbar from "../layouts/Navbar";
 import { useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
 import TaskContainer from "../components/task-container/TaskContainer";
+import TaskStats from "../components/task-stats/TaskStats";
+import PieChartStats from "../components/task-stats/PieChartStats";
 
 const drawerWidth = 240;
 
@@ -69,10 +71,10 @@ const Dashboard = () => {
             <TaskModal />
           </Grid>
           <Grid size={4} sx={{ border: "1px solid black" }}>
-            <Box>Additional content or widgets</Box>
+            <PieChartStats />
           </Grid>
           <Grid size={8} sx={{ border: "1px solid black" }}>
-            <Box>More content for the main area</Box>
+            <TaskStats />
           </Grid>
         </Grid>
       </Main>
